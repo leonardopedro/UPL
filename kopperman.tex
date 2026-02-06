@@ -1,0 +1,252 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\title{The $\mathrm{L}_{\omega_1 \omega_1}$-Theory of Hilbert Spaces}
+\author{Ralph Kopperman}
+\date{}
+\begin{document}
+\maketitle
+\section*{Introduction}
+It will be shown later in this paper that the class of all Hilbert spaces is not an elementary class (in the wider sense) in the lower predicate calculus. It is not difficult to find a type and a sentence in $\mathrm{L}_{\omega_1 \omega_1}$ (of that type) whose models are precisely the Hilbert spaces (slightly altered to include in their domains the real or complex numbers).
+This paper will be devoted to finding this axiomatization and showing that all nonseparable Hilbert spaces are elementarily equivalent (in $\mathrm{L}_{\omega_1 \omega_1}$) and that two separable Hilbert spaces are elementarily equivalent iff they are isomorphic. One of the major problems encountered when working with infinitary languages is that these languages are extremely incompact (for specifics see [2]), but the above results will imply a type of compactness for the theory of Hilbert spaces.
+The paper will be organized as follows: §I: Introduction, which gives notations used throughout and a definition of the infinitary languages used in this paper; §II: General results, which collects some of the results from the theory of models of finitary and infinitary languages which will be used later in the paper; §III: Definition of Hilbert spaces, which will define the complex and real numbers as well; §IV: Completeness of the theory of nonseparable Hilbert spaces, which will also include a proof of the fact that they do not form an elementary class in the wider sense in l. p. c. and §V: Compactness in the language of Hilbert spaces.
+Prerequisite or parallel to this paper is [1, pp. 242-243 and 247-257] or a good knowledge of the general theory of Hilbert spaces.
+\section{Introduction}
+Our set theory will be informal but capable of formalization in any set theory which allows classes of sets as well as sets, such as that of Gödel. Ordinals are defined so that an ordinal is identified with the set of all smaller ordinals, and the letters $o, p$ will generally be reserved for ordinals. OR will denote the class of all ordinals. Cardinals are identified with initial ordinals (and denoted by $\pi, \epsilon$). Denote by $c(\mathrm{A})$ the cardinality of a set A. A well-ordering of a set is a bijection from an ordinal onto that set. We denote the fact that $\mathrm{f}: o \rightarrow \mathrm{A}$ is a well-ordering of A by writing '$\mathrm{A}=\{\mathrm{f}(p) \mid p
+$\operatorname{IX}(\mathrm{B})=\{p \mid \mathrm{f}(p) \in \mathrm{B}\}$. A $p$-sequence in class A is simply a map $\mathrm{f}: p \rightarrow \mathrm{A}$, and if it is clear in which class the range of a $p$-sequence is contained, we simply say that a is a $p$-sequence. By a sequence we mean a $\omega$-sequence, where $\omega$ denotes the first infinite cardinal. In this paper $\omega_1$ will denote the second infinite cardinal. A $p$-type is simply a $p$-sequence whose range is contained in $\omega$. If it is unnecessary to distinguish $p$ we simply say that 't is a type'. Let f be a $p$-sequence, and let $m
+A structure is an ordered set $\mathfrak{A}=\left\langle A, R_{p}\right\rangle_{p
+Let $\mathrm{f}: \mathrm{A} \rightarrow \mathrm{B}$, $\mathrm{C} \subset \mathrm{A}$, and $\mathrm{g}: \mathrm{A} \rightarrow \mathrm{B}$, then $\mathrm{f}(\mathrm{C} / \mathrm{g})$ is the function defined by $\mathrm{f}(\mathrm{C} / \mathrm{g})(\mathrm{x})=\mathrm{f}(\mathrm{x})$ if $\mathrm{x} \notin \mathrm{C}$ and $\mathrm{f}(\mathrm{C} / \mathrm{g})(\mathrm{x})=\mathrm{g}(\mathrm{x})$ if $\mathrm{x} \in \mathrm{C}$.
+Let $\mathfrak{A}, \mathfrak{B}$ be structures (of the same type). Then $\mathfrak{A}$ is a substructure of $\mathfrak{B}$ (written $\mathfrak{A} \subset \mathfrak{B}$) iff $\mathrm{A} \subset \mathrm{B}$, $\mathrm{R}_{p}=\mathrm{A}^{\mathrm{t}(p)} \cap \mathrm{S}_{p}$, if $\mathrm{t}(p) \geq 1$ and if $\mathrm{t}(p)=0$, then $\mathrm{c}_{p}=\mathrm{e}_{p}$. If $\mathfrak{A}$ is a substructure of $\mathfrak{B}$, then we also say that $\mathfrak{B}$ is an extension of $\mathfrak{A}$.
+Let $\mathfrak{A}, \mathfrak{B}$ be structures, $\mathrm{f}: \mathfrak{A} \rightarrow \mathfrak{B}$. Then f is an isomorphism from $\mathfrak{A}$ into $\mathfrak{B}$ if f is a bijection and:
+\begin{enumerate}
+\item if $\mathrm{t}(p) \geq 1$, then for any $\mathrm{a} \in \mathrm{A}^{\mathrm{t}(p)}$, $\mathrm{a} \in \mathrm{R}_{p}$ iff $\mathrm{f} \cdot \mathrm{a} \in \mathrm{S}_{p}$; (where $\mathrm{f} \cdot \mathrm{a}$ is the composition of f with $\mathrm{a}$, $\mathrm{f} \cdot \mathrm{a}(i)=\mathrm{f}(\mathrm{a}(i))$).
+\item if $\mathrm{t}(p)=0$ then $\mathrm{f}\left(\mathrm{c}_{p}\right)=\mathrm{e}_{p}$.
+\end{enumerate}
+Let $\mathfrak{A}, \mathfrak{B}$ be structures. We write $\mathfrak{A} \in \operatorname{Iso} \operatorname{Sub}(\mathfrak{B})$ iff $\mathfrak{A} \cong \mathfrak{C}$ for some $\mathfrak{C} \subset \mathfrak{B}$.
+Let $\pi$ be a cardinal. Then $\pi$ is regular iff $\pi > \bigcup \{\epsilon_{p} \mid p
+\begin{definition}
+Let $\pi, \varepsilon$ be regular cardinals, $t$ an $o$-type. Then $\mathrm{L}_{\pi \varepsilon}^{t}$ is the language defined as follows: $\mathrm{L}_{\pi \varepsilon}^{t}$ has the logical symbols $\forall, \exists, \forall, \Lambda, \neg$, and $\equiv$, and the set of $\pi \cup \varepsilon$ individual variables V. When $\mathrm{t}(p) \geq 1$ it will have the relational symbol $\underline{R}_{p}$, where $\underline{R}_{p}$ is $t(p)$-ary. In addition, when $t(p)=0$ it will have the individual constant $\underline{c}_{p}$. Let $C$ be the set of individual constants and let $K=V \cup C$. Then K will be assumed well ordered, $\mathrm{K}=\{x_{i} \mid i<\beta\}$.
+\end{definition}
+The atomic formulas are all formulas of the form:
+\begin{enumerate}
+\item $\mathrm{x}_{\mathrm{i}} \equiv \mathrm{x}_{j}$, $i, j \in \mathrm{IX}(\mathrm{K})$, or
+\item $R_{p}(x \cdot j)$, $j$ a $t(p)$-sequence in $\operatorname{IX}(\mathrm{K})$.
+\end{enumerate}
+The compound formulas of $\mathrm{L}_{\pi \varepsilon}^{t}$ will be built as follows: $\mathrm{F}_{0}=\{\phi \mid \phi$ an atomic formula of $\mathrm{L}_{\pi \varepsilon}^{t}\}$; if $q$ is a limit ordinal then $\mathrm{F}_{q}=\bigcup_{r\begin{align*}
+\mathrm{A}_{q} &= \{\neg \phi \mid \phi \in \mathrm{F}_{q}\}, \\
+\mathrm{B}_{q} &= \{\mathrm{V} X \mid X \subset \mathrm{F}_{q} \text{ and } c(X)<\pi\}, \\
+\mathrm{C}_{q} &= \{\Lambda X \mid X \subset \mathrm{F}_{q} \text{ and } c(X)<\pi\}, \\
+\mathrm{D}_{q} &= \{\{\exists Y\} \phi \mid \phi \in \mathrm{F}_{q}, Y \subset V \text{ and } c(Y)<\varepsilon\}, \\
+\mathrm{E}_{q} &= \{\{\forall Y\} \phi \mid \phi \in \mathrm{F}_{q}, Y \subset V \text{ and } c(Y)<\varepsilon\}.
+\end{align*}
+Now let $\mathrm{L}_{\pi \varepsilon}^{t}=\bigcup_{q \in O R} \mathrm{F}_{q}$.
+Abbreviations. Formulas of $\mathrm{L}_{\pi \varepsilon}^{t}$ will not always be written in the form in which they are defined above. If $X=\{\phi_{i} \mid i \in I\}$ then $V X=V_{i \in I} \phi_{i}$. If $X$ contains only the two formulas $\theta, \phi$, then $V X$ may be written $\theta \vee \phi$, and similar notations may be used. For example, the formula $\Lambda_{i \in I} \bigvee_{j \in J_{i}} \phi_{i j}$ will stand for $\Lambda \{\bigvee \{\phi_{i j} \mid j \in J_{i}\} \mid i \in I\}$. $(\exists m \mid v \mid n) \phi$ will shorten $\left(\exists \left(v_{i} \mid m \leq i
+Note that if $\pi=\varepsilon=\omega$ then we have the 1. p.c.
+\begin{definition}
+If $\phi \in \mathrm{L}_{\pi \varepsilon}^{t}$ then $\operatorname{rk}(\phi)$ is the least ordinal $q$ such that $\phi \in \mathbf{F}_{q}$.
+\end{definition}
+Remark. It can easily be shown that $\mathrm{rk}(\phi)$ is a nonlimit ordinal and $\mathrm{rk}(\phi)<\pi$. Thus $\mathrm{L}_{\pi \varepsilon}^{t}=\bigcup_{q<\pi} F_{q}$, so $\mathrm{L}_{\pi \varepsilon}^{t}$ is a set. For a more formal (set-theoretic) definition of $\mathrm{L}_{\pi \varepsilon}^{t}$ see [3, pp. 101, 72-73]. That book also contains set-theoretic definitions of all the concepts introduced in this section.
+Free variables of a formula and its subformulas are defined as expected (see [4, p. 13]) and then it can easily be seen that if $\phi$ is a subformula of $\theta$ (written $\phi \in \operatorname{SF}(\theta)$), then $\mathrm{c}(\mathrm{FV}(\phi)-\mathrm{FV}(\theta))<\varepsilon$ (where $\mathrm{FV}(\phi)$ denotes the set of free variables of $\phi$). Also $\mathrm{c}(\mathrm{SF}(\phi))<\pi$. Satisfaction is also defined as expected [6], and we shall use $\mathfrak{A} \vDash \phi[\mathrm{a}]$ to denote the fact that the sequence $\mathrm{a} \in \mathrm{A}^{\pi \cup \varepsilon}$ satisfies the formula $\phi$ in $\mathfrak{A}$. It can be shown that for any formula $\phi$ of $\mathrm{L}_{\pi \varepsilon}^{t}$ and any pair of sequences $\mathrm{a}, \mathrm{b} \in \mathrm{A}^{\pi \cup \varepsilon}$, if a and b agree on $\operatorname{IX}(\mathrm{FV}(\phi))$ then $\mathfrak{A} \vDash \phi[\mathrm{a}]$ iff $\mathfrak{A} \vDash \phi[\mathrm{b}]$. A sentence can now be said to be satisfied iff it is satisfied for some (thus for each) sequence.
+$M(\mathrm{S})$ will denote the class of structures which satisfy the elements of the set of sentences S. For any t-structure $\mathfrak{A}$, $\mathrm{T}_{\pi \varepsilon}(\mathfrak{A})=\{\phi \mid \phi$ a sentence of $\mathrm{L}_{\pi \varepsilon}^{t}$ and $\mathfrak{A} \vDash \phi\}$; if $K$ is a class of structures, $\mathrm{T}_{\pi \varepsilon}(K)=\bigcap_{\mathfrak{A} \in K} \mathrm{T}_{\pi \varepsilon}(\mathfrak{A})$; if S is a set of sentences in $\mathrm{L}_{\pi \varepsilon}^{t}$, then $\mathrm{T}_{\pi' \varepsilon'}(\mathrm{S})=\mathrm{T}_{\pi' \varepsilon'}(M(\mathrm{S}))$. If $\mathrm{T} \subset \mathrm{T}_{\pi' \varepsilon'}(\mathrm{S})$ for some $\pi', \varepsilon'$, then $\mathrm{S} \vDash \mathrm{T}$, and $\mathrm{S} \vDash \phi$ iff $\mathrm{S} \vDash \{\phi\}$. A theory is a set of sentences $\mathrm{S} \subset \mathrm{L}_{\pi \varepsilon}^{t}$ such that $\mathrm{T}_{\pi \varepsilon}(\mathrm{S})=\mathrm{S}$. Clearly if $\Sigma$ is a structure, set of sentences, or class of structures, $\mathrm{T}_{\pi \varepsilon}(\Sigma)$ is a theory.
+\section{General results}
+\begin{definition}
+Let $\mathfrak{A}, \mathfrak{B}$ be structures of type $t$, $\mathrm{T}$ a set of sentences in $\mathrm{L}_{\pi \varepsilon}^{t}$. Then $\mathfrak{A} \equiv_{\mathfrak{T}} \mathfrak{B}$ ($\mathfrak{A}$ is T-equivalent to $\mathfrak{B}$) iff for each $\phi \in \mathrm{T}$, $\mathfrak{A} \vDash \phi$ iff $\mathfrak{B} \vDash \phi$. If $\mathrm{T}=$ all sentences in $\mathrm{L}_{\pi \varepsilon}^{t}$, then we also write $\mathfrak{A} \equiv_{\pi, \varepsilon} \mathfrak{B}$ and say '$\mathfrak{A}$ is $(\pi, \varepsilon)$-elementarily equivalent to $\mathfrak{B}$'.
+\end{definition}
+\begin{definition}
+Let $\mathfrak{A} \subset \mathfrak{B}$, $\mathrm{T} \subset \mathrm{L}_{\pi \varepsilon}^{t}$. Then $\mathfrak{A}$ is a T-substructure of $\mathfrak{B}$ ($\mathfrak{A} <_{\mathfrak{T}} \mathfrak{B}$) iff for all $\phi \in \mathrm{T}$, $\mathrm{a} \in \mathrm{A}^{\pi \cup \varepsilon}$, $\mathfrak{A} \vDash \phi[\mathrm{a}]$ iff $\mathfrak{B} \vDash \phi[\mathrm{a}]$. If $\mathrm{T}=\mathrm{L}_{\pi \varepsilon}^{t}$ then we may write $\mathfrak{A} <_{\pi, \varepsilon} \mathfrak{B}$ in place of $\mathfrak{A} <_{\mathfrak{T}} \mathfrak{B}$, and we say '$\mathfrak{A}$ is a $(\pi, \varepsilon)$-elementary substructure of $\mathfrak{B}$'.
+\end{definition}
+Clearly, if $S \subset T \subset L_{\pi \varepsilon}^{t}$, then $\mathfrak{A} \equiv_{\mathfrak{T}} \mathfrak{B}$ implies $\mathfrak{A} \equiv_{\mathfrak{S}} \mathfrak{B}$ and $\mathfrak{A} <_{\mathfrak{T}} \mathfrak{B}$ implies $\mathfrak{A} <_{\mathfrak{S}} \mathfrak{B}$. In particular, if $\pi'<\pi$, $\varepsilon'<\varepsilon$, then $\mathfrak{A} \equiv_{\pi, \varepsilon} \mathfrak{B}$ implies $\mathfrak{A} \equiv_{\pi', \varepsilon'} \mathfrak{B}$ and $\mathfrak{A} <_{\pi, \varepsilon} \mathfrak{B}$ implies $\mathfrak{A} <_{\pi', \varepsilon'} \mathfrak{B}$. We will also need the following standard theorem on elementary extensions in the finitary sense:
+\begin{theorem}
+Let $\mathfrak{A}_{1}, \mathfrak{A}_{2}, \cdots, \mathfrak{A}_{\mathrm{i}}, \cdots, \mathrm{i}<\omega$, be a sequence of structures such that if $\mathrm{i}<\mathrm{j}$ then $\mathfrak{A}_{1} <_{\omega, \omega} \mathfrak{A}_{\mathrm{j}}$. Then for each $\mathrm{i}$, $\mathfrak{A}_{1} <_{\omega, \omega} \bigcup_{\mathrm{j}<\omega} \mathfrak{A}_{\mathrm{j}}$.
+\end{theorem}
+(Note: If $\{\mathfrak{A}_{1} \mid \mathrm{i} \in \mathrm{I}\}$ is a set of structures of the same type, $\mathfrak{A}_{1}=\left\langle\mathrm{A}_{1}, \mathrm{R}_{p}^{1}\right\rangle_{p
+The proof may be found in [7]. The following theorem (and its proof) is analogous to part of the theory of the lower predicate calculus.
+\begin{theorem}
+Let $\mathfrak{A} \subset \mathfrak{B}$. Assume that for each set $\{\mathrm{a}_{\mathrm{i}} \mid i<\varepsilon\} \subset \mathrm{A}$, $\{\mathrm{b}_{\mathrm{i}} \mid i<\varepsilon\} \subset \mathrm{B}$ there is an automorphism $\mathrm{f}: \mathfrak{B} \rightarrow \mathfrak{B}$ such that $\mathrm{f}\left(\mathrm{a}_{\mathrm{i}}\right)=\mathrm{a}_{\mathrm{i}}$ and $\mathrm{f}\left(\mathrm{b}_{\mathrm{i}}\right) \in \mathrm{A}$ for each $i<\varepsilon$. Then $\mathfrak{A} <_{\mathfrak{T}} \mathfrak{B}$, where $\mathrm{T}=\{\phi \in \mathrm{L}_{\pi \varepsilon}^{t} \mid$ for some sentence $\sigma \in \mathrm{L}_{\pi \varepsilon}^{t}$, $\phi \in \mathrm{SF}(\sigma)\}$.
+\end{theorem}
+\begin{proof}
+(By induction on formulas). The theorem is clear for atomic formulas (simply by the definition of substructure). The case of conjunctions is similar to that of disjunctions. For disjunctions, let $\theta \in \operatorname{SF}(\phi)$, $\theta=\bigvee X$. Then $X \subset \operatorname{SF}(\phi)$, so for each $\phi \in X$, $\mathfrak{A} \vDash \phi[a]$ iff $\mathfrak{B} \vDash \phi[a]$. Thus $\mathfrak{A} \vDash \bigvee X[a]$ iff $\mathfrak{B} \vDash \bigvee X[a]$. The case of negations is also proven similarly.
+The case of universal quantifiers is analogous to that of existential quantifiers which follows: Clearly if $\mathfrak{A} \vDash (\exists Y) \theta[a]$, then there is a $k \in A^{\varepsilon}$, $S=IX(Y)$ such that $\mathfrak{A} \vDash \theta[a(S / k)]$, so $\mathfrak{B} \vDash \theta[a(S / k)]$ (note that if $(\exists Y) \theta \in \operatorname{SF}(\phi)$, then $\theta \in \operatorname{SF}(\phi)$) and thus $\mathfrak{B} \vDash (\exists Y) \theta[a]$. If, on the other hand, $\mathfrak{B} \vDash (\exists Y) \theta[a]$ then there is a $b \in B^{\varepsilon}$ such that $\mathfrak{B} \vDash \theta[a(S / b)]$. There is an automorphism $\mathrm{f}: \mathfrak{B} \rightarrow \mathfrak{B}$ with $\mathrm{f}\left(\mathrm{b}_{\mathrm{i}}\right) \in \mathrm{A}$ for each $i \in \mathrm{IX}(\mathrm{Y})$ and $\mathrm{f}\left(\mathrm{a}_{\mathrm{i}}\right)=\mathrm{a}_{\mathrm{i}}$ for each $i \in \operatorname{IX}(\mathrm{FV}((\exists \mathrm{Y}) \theta))$ (note here that since $(\exists \mathrm{Y}) \theta \in \operatorname{SF}(\phi)$, $\mathrm{c}(\mathrm{FV}((\exists \mathrm{Y}) \theta))<\varepsilon$). Thus $\mathfrak{B} \vDash \theta[\mathrm{f} \cdot \mathrm{a}(\mathrm{IX}(\mathrm{Y}) / \mathrm{f} \cdot \mathrm{b})]$, but $\mathrm{a}=\mathrm{f} \cdot \mathrm{a}$, thus $\mathfrak{B} \vDash \theta[\mathrm{a}(\mathrm{IX}(\mathrm{Y}) / \mathrm{f} \cdot \mathrm{b})]$, so by induction $\mathfrak{A} \vDash \theta[\mathrm{a}(\mathrm{IX}(\mathrm{Y}) / \mathrm{f} \cdot \mathrm{b})]$, therefore $\mathfrak{A} \vDash (\exists \mathrm{Y}) \theta[\mathrm{a}]$.
+\end{proof}
+\begin{corollary}
+Under the conditions of Theorem 2.4, if $\pi=\varepsilon$ then $\mathfrak{A} <_{\pi, \varepsilon} \mathfrak{B}$.
+\end{corollary}
+\begin{proof}
+It suffices to show $T=L_{\pi \varepsilon}^{t}$ which may be done by a simple induction on formulas.
+\end{proof}
+\section{Definition of Hilbert spaces}
+It will be assumed that the real numbers can be characterized as an archimedean ordered field in which all Cauchy sequences converge, and that the complex numbers are simply the extension of this field by one element, i, such that $\mathrm{i}^{2}=-1$.
+\begin{definition}
+A structure $\mathbf{R}=\langle R,+, \cdot, 0,1, \leq\rangle$ of type $r=\langle 3,3,0,0,2\rangle$ will be called a real number system iff:
+\begin{enumerate}
+\item $\mathbf{R}$ is an ordered field (see [5, p. 43]),
+\item $(\forall v / \omega+1)\left(\exists v_{\omega+1}\right)\left(\forall v_{\omega+2}\right)\left(\bigwedge_{\mathrm{i}<\omega} v_{1} \leq v_{\omega} \rightarrow\left(\bigwedge_{\mathrm{i}<\omega} v_{1} \leq v_{\omega+1} \wedge\left(\bigwedge_{\mathrm{i}<\omega} v_{1} \leq v_{\omega+2} \rightarrow v_{\omega+1} \leq v_{\omega+2}\right)\right)\right)$.
+\end{enumerate}
+\end{definition}
+(2) says in essence that if a countable set $\left\{\mathrm{v}_{\mathrm{i}} \mid \mathrm{i}<\omega\right\}$ has an upper bound $\left(\mathrm{v}_{\omega}\right)$ then it has an upper bound $\left(\mathrm{v}_{\omega+1}\right)$ which is less than any other upper bound.
+\begin{theorem}
+Any real number system is isomorphic to "the real numbers".
+\end{theorem}
+\begin{proof}
+We must show that our field is archimedean and that each Cauchy sequence in it has a limit. An outline of the work follows: It may be shown that if c is a least upper bound for the (countable) set of integers, then $\mathrm{c}=\mathrm{c}+1$, contradicting the field axioms. Thus the integers cannot have any upper bound whatsoever, so our field is archimedean.
+Next, let $\mathrm{A}=\left\{\mathrm{a}_{\mathrm{i}} \mid \mathrm{i}<\omega\right\}$ be a Cauchy sequence. It can easily be seen that A (and any subset of A) has a lub. Now consider the sequence $\left\{b_{i} \mid i<\omega\right\}$, where $b_{i}=$ lub $\left\{a_{j} \mid i\end{proof}
+\begin{definition}
+A structure $\mathbf{C}=\langle\mathbf{C},+, \cdot, 0,1, \leq, \mathbf{i}, \sim\rangle$ of type $\mathbf{c}=\langle 3,3,0,0,2,0,2\rangle$ will be called a complex number system iff:
+\begin{enumerate}
+\item $\langle\mathbf{C},+, \cdot, 0,1\rangle$ is a field,
+\item identical to (2) of Definition 3.1,
+\item $(\forall v / 2)\left(\overline{v_{0}}+\overline{v_{1}}=\overline{v_{0}+v_{1}}\right)$,
+\item same as (3) with $\cdot$ substituted for +,
+\item $(\forall v_{0})\left(\overline{\bar{v}_{0}}=v_{0}\right)$,
+\item $\left(i^{2}=-1 \wedge \bar{i}=-i\right)$,
+\item $(\forall v / 2)\left(0 \leq v_{1} \wedge 0 \leq v_{0} \rightarrow 0 \leq v_{0}+v_{1} \wedge 0 \leq v_{0} \cdot v_{1}\right)$,
+\item $(\forall v_{0})\left(\overline{v_{0}}=v_{0} \leftrightarrow 0 \leq v_{0} \vee v_{0} \leq 0\right)$,
+\item $(\forall v / 2)\left(v_{0} \leq v_{1} \wedge v_{1} \leq v_{0} \rightarrow v_{0}=v_{1}\right)$.
+\end{enumerate}
+\end{definition}
+Axioms (3) and (4) say that - is a field automorphism and axiom (5) says that it is involutory. The definition is justified by the following theorem, which we once again prove only in outline:
+\begin{theorem}
+Any complex number system is isomorphic to the "complex numbers".
+\end{theorem}
+\begin{proof}
+Let $\mathbf{R}=\{\mathrm{a} \mid \mathrm{a}=\overline{\mathrm{a}}\}$, and let $+^{\prime}=+\bigcap \mathbf{R}^{3}$, etc. Then $\mathbf{R}=\left\langle\mathbf{R},+^{\prime}, \cdot^{\prime}, 0,1, \leq^{\prime}\right\rangle$ can be shown to be an ordered field, since in general the set of elements left fixed by a field automorphism is a subfield and since (7), (8), and (9) can be used to show the order axioms. Now (2) shows $\mathbf{R}$ to be a real number system.
+It remains to be shown that each $z=a+b i$, where $a, b \in R$. However, $z=1 / 2(z+\bar{z})+i(i / 2(\bar{z}-z))$, and each of $1 / 2(z+\bar{z})$, $i / 2(\bar{z}-z)$ can easily be shown to be its own conjugate.
+\end{proof}
+In this paper we will only deal with complex Hilbert spaces. The real case is entirely analogous. The following definition is essentially a transposition into the language $\mathrm{L}_{\omega_{1} \omega_{1}}^{\mathrm{h}}$ of the axioms for Hilbert spaces found in [1, pp. 242-243].
+\begin{definition}
+A structure $\mathfrak{A}=\langle\mathrm{A}, \mathrm{H}, \mathrm{C},+, \cdot, 0,1, \leq, \mathrm{i}, \sim, \oplus, \bigcirc, 0^{\prime},(,)\rangle$ of type $\mathrm{h}=\langle 1,1,3,3,0,0,2,0,2,3,3,0,3\rangle$ is called a Hilbert system iff:
+\begin{enumerate}
+\item $\mathbf{C}=\langle\mathbf{C},+, \cdots, \sim\rangle$ is a complex system.
+\item $\mathfrak{B}=\langle\mathrm{A}, \mathrm{H}, \mathrm{C},+, \cdot, 0,1, \oplus, \bigcirc, 0^{\prime}\rangle$, is a vector space (this may be expressed by a single sentence of $\mathrm{L}_{\omega \omega}$; see, for example, [5, p. 67].
+\item $(\forall v / 3)\left(\left(v_{0}, v_{1}\right)=v_{2} \rightarrow H\left(v_{0}\right) \wedge H\left(v_{1}\right) \wedge C\left(v_{2}\right)\right)$,
+\item $\left(\forall v / 2\right)\left(v_{0} \leq v_{1} \rightarrow C\left(v_{0}\right) \wedge C\left(v_{1}\right)\right)$,
+\item $(\forall v_{0})\left(\left(v_{0}, v_{0}\right)=0 \rightarrow v_{0}=0^{\prime}\right)$,
+\item $(\forall v / 2)\left(\left(v_{0}, v_{0}\right)=v_{1} \rightarrow 0 \leq v_{1}\right)$,
+\item $(\forall v / 3)\left(\left(v_{0}, v_{1} \oplus v_{2}\right)=\left(v_{0}, v_{1}\right)+\left(v_{0}, v_{2}\right)\right)$,
+\item $(\forall v / 3)\left(\left(v_{0} \bigcirc v_{1}, v_{2}\right)=v_{0} \cdot\left(v_{1}, v_{2}\right)\right)$,
+\item $(\forall v / 2)\left(\left(v_{0}, v_{1}\right)=\left(v_{1}, v_{0}\right)\right)$,
+\item $(\forall v / \omega+1)\left(\exists v_{\omega+1}\right)\left(\forall v_{\omega+2}\right)\left(\left(0\end{enumerate}
+\end{definition}
+Axioms (3) and (4) simply restrict ( , ) and $\leq$ respectively to the correct domains and ranges. Just as Definitions 3.1 and 3.3 were justified by representation theorems for the objects that resulted, Definition 3.5 also requires a representation theorem. First:
+\begin{definition}
+Let $\mathfrak{A}$ be a Hilbert system. Then $(\mathfrak{A})^{*}=\langle\mathrm{H}, \oplus, \bigcirc,(,)\rangle$ is called the associated Hilbert space of $\mathfrak{A}$. If $\mathfrak{S}=\langle\mathrm{H}, \oplus, \bigcirc,(,)\rangle$ is a Hilbert space over the complex numbers, $(\mathfrak{S})^{*}=\langle\mathrm{H} \cup \mathrm{C}, \mathrm{H}, \mathrm{C},+, \cdot, 0,1, \leq, \mathrm{i},-, \oplus, \bigcirc, 0^{\prime},(), \rangle$ is a Hilbert system, where $\mathrm{H} \cup \mathrm{C}$ is the (disjoint) union of the domain of $\mathfrak{S}$ with the domain of the complex numbers, $+, \cdot, 0,1, \leq, \mathrm{i}$, and ${ }^{-}$ stand for the usual operations and elements of the complex numbers, and the rest of the relations are brought directly over from $\mathfrak{S}$.
+\end{definition}
+\begin{theorem}
+\begin{enumerate}
+\item If $\mathfrak{A}$ is a Hilbert system, then $(\mathfrak{A})^{*}$ is a Hilbert space.
+\item If $\mathfrak{F}$ is a Hilbert space, then $(\mathfrak{F})^{*}$ is a Hilbert system.
+\item If $\mathfrak{A}, \mathfrak{B}$ are either both Hilbert spaces or both Hilbert systems, and $\mathfrak{B} \cong \mathfrak{A}$, then $(\mathfrak{A})^{*} \cong (\mathfrak{B})^{*}$. (For Hilbert systems, isomorphism is as defined in § of this paper, for Hilbert spaces, by an isomorphism we mean an isometric isomorphism as defined in [1, p. 65]. This turns out to be precisely an inner-product-preserving isomorphism.)
+\item If $\mathfrak{A}$ is a Hilbert space or a Hilbert system, $\mathfrak{A} \cong \left((\mathfrak{A})^{*}\right)^{*}$.
+\item Let $\mathfrak{A}, \mathfrak{B}$ be Hilbert systems. Then $\mathfrak{A} \in \operatorname{Iso} \operatorname{Sub}(\mathfrak{B})$ iff $(\mathfrak{A})^{*} \cong \mathfrak{S}$ for some subspace $\mathfrak{S}$ of $(\mathfrak{B})^{*}$.
+\end{enumerate}
+\end{theorem}
+The proof is immediate from the Definition (3.6) and is left to the reader. To close this section, we introduce a limited idea of dimension.
+\begin{definition}
+Let $\mathrm{n}<\omega$, and set $\delta_{i j}=I$ if $i=j$, $\delta_{i j}=0$ if $i \neq j$ ($i, j$ any ordinals). Then:
+\begin{align*}
+\mathrm{D}_{\mathrm{n}} &= (\exists v / \mathrm{n})\left(\forall v_{2 \mathrm{n}}\right)(\exists \mathrm{n} / v / 2 \mathrm{n})\left(\bigwedge_{1<\mathrm{n}} \bigwedge_{1<\mathrm{n}}\left(v_{i}, v_{j}\right)\right. \\
+&= \left.\delta_{\mathrm{ij}} \wedge v_{\mathrm{n}} \bigcirc v_{0} \oplus \cdots \oplus v_{2 \mathrm{n}-1} \bigcirc v_{\mathrm{n}-1}=v_{2 \mathrm{n}}\right)
+\end{align*}
+We also have:
+\begin{align*}
+\mathrm{D}_{\omega} &= (\exists v / \omega)\left(\forall \omega 2 / v / \omega 2+1\right)(\exists \omega / v / \omega 2)\left(\bigwedge_{1<\omega} \bigwedge_{1<\omega}\left(v_{1}, v_{1}\right)\right. \\
+&= \left.\delta_{\mathrm{ij}} \wedge\left(0&\left.\left.\left.\left.\left.v_{\omega 2+1} \bigcirc\left(v_{1}, \bigcirc v_{0} \oplus \cdots \oplus v_{\omega+1} \bigcirc v_{1}\right)\right)\end{align*}
+Finally, $\mathrm{D}_{\omega+1}=\bigwedge_{\mathrm{n} \leq \omega}-\mathrm{D}_{\mathrm{n}}$.
+$\mathrm{D}_{\mathrm{n}}$, $\mathrm{n} \leq \omega$ simply asserts the existence of an orthonormal basis $\left\{\mathrm{v}_{1}, \cdots, \mathrm{v}_{\mathrm{n}}\right\}$ or $\left\{\mathrm{v}_{1}, \cdots,\right\}$ by stating that it is orthonormal and then stating that each element of the space is a linear combination (or the limit of linear combinations) of these elements. $\mathrm{D}_{\omega+1}$ simply asserts that $(\mathfrak{A})^{*}$ is not countable in dimension, and thus nonseparable. Each Hilbert system satisfies $\mathrm{D}_{\mathrm{n}}$ for some $\mathrm{n} \leq \omega+1$.
+\end{definition}
+Note that if $\mathfrak{A} \vDash \mathrm{D}_{\mathrm{n}}$ for some $\mathrm{n} \leq \omega$ then the countable set
+$$
+\bigcup_{m<\omega}\left(\Sigma_{j$$
+is dense in $(\mathfrak{M})^{*}$, so $(\mathfrak{A})^{*}$ is, in fact, separable. In the last section we shall show that if $\phi$ is a sentence of $\mathrm{L}_{\omega_{1} \omega_{1}}^{\mathrm{h}}$, then $\phi$ is equivalent to a countable disjunction of the $\mathrm{D}_{\mathrm{n}}$.
+\section{Completeness of the theory of nonseparable Hilbert spaces}
+By [1, 16, p. 254] if $\mathfrak{A}, \mathfrak{B} \vDash \mathrm{D}_{\mathrm{n}}$, $\mathrm{n} \leq \omega$, then their associated Hilbert spaces are isomorphic, thus by Theorem 3.7, $\mathfrak{A} \cong \mathfrak{B}$. In this section we shall show, in addition, that if $\mathfrak{A}, \mathfrak{B} \vDash \mathrm{D}_{\omega+1}$, then $\mathfrak{A} \equiv_{\omega_{1}, \omega_{1}} \mathfrak{B}$.
+\begin{lemma}
+Let $\mathfrak{A}, \mathfrak{B}$ be two Hilbert systems. Then $\mathfrak{A} \in \operatorname{Iso} \operatorname{Sub}(\mathfrak{B})$ or $\mathfrak{B} \in \operatorname{Iso} \operatorname{Sub}(\mathfrak{A})$.
+\end{lemma}
+\begin{proof}
+Assume $\operatorname{dim}\left((\mathfrak{A})^{*}\right) \leq \operatorname{dim}\left((\mathfrak{B})^{*}\right)$ (for a definition of dimension for Hilbert spaces, see [1, 15, p. 254]). Let $\left\{x_{i} \mid i \in I\right\}$ be an orthonormal base of $(\mathfrak{A})^{*}$, $\left\{y_{j} \mid j \in J\right\}$ be one for $(\mathfrak{A})^{*}$. Let $f: I \rightarrow J$ be one-one and let $\Re$ be the Hilbert space spanned by $\left\{\mathrm{y}_{\mathrm{f}(\mathrm{i})} \mid \mathrm{i} \in \mathrm{I}\right\}$. Then $\operatorname{dim}(\Re)=\operatorname{dim}\left((\mathfrak{A})^{*}\right)$ so $(\mathfrak{A})^{*} \cong \Re \subset (\mathfrak{B})^{*}$, thus, by Theorem 3.7 (e), $\mathfrak{A} \in \operatorname{Iso} \operatorname{Sub}(\mathfrak{B})$. Similarly, if $\operatorname{dim}\left((\mathfrak{B})^{*}\right) \leq \operatorname{dim}\left((\mathfrak{A})^{*}\right)$, then $\mathfrak{B} \in \operatorname{Iso} \operatorname{Sub}(\mathfrak{A})$.
+\end{proof}
+\begin{theorem}
+Let $\mathfrak{A}, \mathfrak{B}$ be Hilbert systems, $\mathfrak{A}=\langle\mathrm{A}, \mathrm{H}, \cdots\rangle$, $\mathfrak{B}=\left\langle\mathrm{B}, \mathrm{H}^{\prime}, \cdots\right\rangle$. Then $\mathfrak{A} <_{\omega_{1}, \omega_{1}} \mathfrak{B}$ iff $\mathfrak{A} \subset \mathfrak{B}$ and $\mathfrak{A} \vDash \mathrm{D}_{\omega+1}$ or, $\mathfrak{A}=\mathfrak{B}$.
+\end{theorem}
+\begin{proof}
+First we shall assume $\mathfrak{A} <_{\omega_{1}, \omega_{1}} \mathfrak{B}$. Note that in $\mathrm{L}_{\omega_{1} \omega_{1}}^{\mathrm{h}}$ each formula is a subformula of some sentence (see Corollary to Theorem 2.4). Since $\mathfrak{A} <_{\omega_{1}, \omega_{1}} \mathfrak{B}$, if $\mathfrak{A} \vDash \mathrm{D}_{\mathrm{n}}$, $\mathrm{n} \leq \omega$, then $\mathfrak{B} \vDash \mathrm{D}_{\mathrm{n}}$, thus $(\mathfrak{A})^{*}, (\mathfrak{B})^{*}$ are both separable. Let $\left\{a_{i} \mid i<\omega\right\}=a$, a sequence with range dense in $(\mathfrak{A})^{*}$, and let $\phi=(\forall v / 2)\left(0
+Conversely, if $\mathfrak{A}=\mathfrak{B}$, there is nothing to show. If $\mathfrak{A} \subset \mathfrak{B}$ and $\mathfrak{A} \vDash \mathrm{D}_{\omega+1}$, then $\mathfrak{B} \vDash \mathrm{D}_{\omega+1}$. Let a be a sequence in $\mathrm{A}$, $\mathrm{b}$ a sequence in B. Then if $\mathrm{b}_{\mathrm{i}} \notin \mathrm{A}$, $\mathrm{b}_{\mathrm{i}} \in \mathrm{H}^{\prime}$. Let $\mathrm{H}^{\prime}$ be decomposed into the following direct sum: $\mathrm{H}^{\prime}=\overline{\mathrm{sp}}\left\langle\mathrm{a}^{+}\right\rangle \oplus \overline{\mathrm{sp}}\left\langle\mathrm{b}^{+}\right\rangle \oplus \mathrm{E} \oplus \mathrm{D}$ (for definition of this $\oplus$ and $\overline{\mathrm{sp}}$ see [1, pp. 50 and 251]), where $\mathrm{a}^{+}=(\mathrm{Rg}(\mathrm{a}) \cup \left\{\mathrm{b}_{\mathrm{i}} \mid \mathrm{b}_{\mathrm{i}} \in \mathrm{H}\right\})-\left\{\mathrm{a}_{\mathrm{i}} \mid \mathrm{a}_{\mathrm{i}} \notin \mathrm{H}\right\}$, $\mathrm{b}^{+}=\mathrm{Rg}(\mathrm{b})-\left\{\mathrm{b}_{\mathrm{i}} \mid \mathrm{b}_{\mathrm{i}} \notin \mathrm{H}^{\prime} \text{ or } \mathrm{b}_{\mathrm{i}} \in \mathrm{H}\right\}$, $\mathrm{E} \subset \mathrm{H}$ and $\overline{\mathrm{sp}}\left\langle\mathrm{b}^{+}\right\rangle \cong \mathrm{E}$, and D is the orthogonal complement of $\overline{\mathrm{sp}}\left\langle\mathrm{a}^{+}\right\rangle \oplus \overline{\mathrm{sp}}\left\langle\mathrm{b}^{+}\right\rangle \oplus \mathrm{E}$ in $\mathrm{H}^{\prime}$ (actually in $(\mathfrak{A})^{*}$). Note that E exists by facts used in the proof of Lemma 4.1, and let $\mathrm{f}: \overline{\mathrm{sp}}\left\langle\mathrm{b}^{+}\right\rangle \rightarrow \mathrm{E}$ be our isomorphism. We now define $\mathrm{g}: \mathrm{B} \rightarrow \mathrm{B}$ by: $\mathrm{g}(\mathrm{x})=\mathrm{y} \oplus \mathrm{f}(\mathrm{z}) \oplus \mathrm{f}^{-1}(\mathrm{w})$, where $\mathrm{x}=\mathrm{y} \oplus \mathrm{z} \oplus \mathrm{w}$, $\mathrm{y} \in \overline{\mathrm{sp}}\left\langle\mathrm{a}^{+}\right\rangle \oplus \mathrm{D}$, $\mathrm{z} \in \overline{\mathrm{sp}}\left\langle\mathrm{b}^{+}\right\rangle$, $\mathrm{w} \in \mathrm{E}$, and $g(x)=x$ if $x \notin H^{\prime}$ (thus $x \in A-H^{\prime}$). Then $g$ is an automorphism as can easily be established. Thus, by the Corollary to Theorem 2.4, $\mathfrak{A} <_{\omega_{1}, \omega_{1}} \mathfrak{B}$.
+\end{proof}
+\begin{corollary}
+Let $\mathfrak{A}, \mathfrak{B}$ be Hilbert systems, $\mathfrak{A} \vDash \mathrm{D}_{\mathrm{n}}$, $\mathfrak{B} \vDash \mathrm{D}_{\mathrm{m}}$. Then $\mathfrak{A} \equiv_{\omega_{1}, \omega_{1}} \mathfrak{B}$ iff $\mathrm{n}=\mathrm{m}$.
+\end{corollary}
+\begin{proof}
+Simply imbed one in the other and apply Theorem 4.2.
+\end{proof}
+By the above theorem and corollary, and a note following Definition 2.2, if $\mathfrak{A} \subset \mathfrak{B}$ and $\mathfrak{A}, \mathfrak{B} \vDash \mathrm{D}_{\omega+1}$, then $\mathfrak{A} <_{\omega, \omega} \mathfrak{B}$ (i.e., $\mathfrak{B}$ is an elementary substructure of $\mathfrak{B}$ in the usual sense), and if $\mathrm{m}=\mathrm{n}$, then $\mathfrak{A} \equiv_{\omega, \omega} \mathfrak{B}$.
+\begin{theorem}
+The class of Hilbert systems is not an elementary class in the wider sense (in the l.p.c.).
+\end{theorem}
+\begin{proof}
+Let $\mathfrak{S}$ be a nonseparable Hilbert space. Then $(\mathfrak{S})^{*}, (\mathfrak{S} \oplus \mathbf{C})^{*}, (\mathfrak{S} \oplus \mathbf{C} \oplus \mathbf{C})^{*}, (\mathfrak{S} \oplus \mathbf{C} \oplus \mathbf{C} \oplus \mathbf{C})^{*}, \cdots$ is an ascending chain of Hilbert systems, each of which is an elementary substructure of the next (by Theorem 4.2 and the remark immediately above). Thus by Theorem 2.3, each must be an elementary substructure of the union. However, the union is not a Hilbert system, since it is not complete (for example, for each $i$ it contains $\Sigma_{1<1}(1 / 2)^{1} x_{i}$ but it does not contain $\Sigma_{1<\omega}(1 / 2)^{1} x_{i}$, where $x_{i}=\left(0^{\prime}, 0,0, \cdots, 1,0,0, \cdots\right)$, the $0^{\prime}$ standing for the 0 vector, and the other 0's standing for the 0 element of $\mathbf{C}$, except for the 1 in the jth place).
+\end{proof}
+\section{Compactness in the language of Hilbert spaces}
+\begin{definition}
+Let $S \subset L_{\pi \varepsilon}^{t}$, $\mu$ a cardinal. Then the $\mu$-boolean combinations of $S$, $B^{\mu}(S)$, is the smallest subset of $L_{\pi' \varepsilon}^{t}$, where $\pi'=\pi \cup \mu$, with the following properties:
+\begin{enumerate}
+\item $S \subset B^{\mu}(S)$
+\item if $\phi \in \mathrm{B}^{\mu}(\mathrm{S})$ then $\neg \phi \in \mathrm{B}^{\mu}(\mathrm{S})$,
+\item if $X \subset B^{\mu}(S)$ and $c(X)<\mu$ then $\wedge X \in B^{\mu}(S)$ and $V X \in B^{\mu}(S)$.
+\end{enumerate}
+The boolean combinations of $S$, $B(S)=\bigcup_{\mu \in C A} B^{\mu}(S)$.
+\end{definition}
+Note that if $S \neq 0$, $B(S)$ is never a set.
+\begin{theorem}
+Let $S$ be a consistent set of sentences (i.e., $M(S) \neq 0$) in $\mathrm{L}_{\pi \varepsilon}^{t}$, $\mathrm{E}$ a set of sentences in $\mathrm{L}_{\pi \varepsilon}^{t}$ such that there is a set $\mathrm{B}^{\prime}(\mathrm{E})$ such that for each $\phi \in \mathrm{B}(\mathrm{E})$ there is a $\phi^{\prime} \in \mathrm{B}^{\prime}(\mathrm{E})$ with $\mathrm{S} \vDash \phi \rightarrow \phi^{\prime}$. For any consistent set of sentences $\mathrm{T} \subset \mathrm{L}_{\pi \varepsilon}^{t}$, $\mathrm{S} \subset \mathrm{T}$, assume there is an $\mathrm{A} \subset \mathrm{E}$ such that $\mathrm{T} \subset \mathrm{T}_{\pi \varepsilon}^{t}(\mathrm{S} \cup \mathrm{A})$ (and $\mathrm{S} \cup \mathrm{A}$ consistent). Then for any sentence $\phi \in \mathrm{L}_{\pi \varepsilon}^{t}$ there is a $\theta \in \mathrm{B}(\mathrm{E})$ such that $\mathrm{S} \vDash \phi \leftrightarrow \theta$.
+\end{theorem}
+\begin{proof}
+If $S \vDash \neg \phi$, then $S \vDash \phi \leftrightarrow \theta \wedge \neg \theta$, for any $\theta \in E$. Thus assume $S \vDash \neg \phi$, so $S \cup \{\phi\}$ is consistent. Let $B=\left\{\theta \in B^{\prime}(E) \mid S \vDash \phi \rightarrow \theta\right\}$. Assume by way of contradiction:
+(5.2'). There is no $\theta \in \mathrm{B}$ such that $\mathrm{S} \vDash \theta \rightarrow \phi$. $\mathrm{S} \cup \{\phi\} \vDash \mathrm{B}$, thus $\mathrm{S} \cup \mathrm{B}$ is consistent. We claim that $S \cup B \cup \{\neg \phi\}$ is consistent. Otherwise $S \cup B \vDash \phi$, i.e. for some $K \subset B$, $S \vDash \wedge K \rightarrow \phi$. (Note that despite the fact that $\wedge K \notin L_{\pi \varepsilon}^{t}$, $\wedge K \in L_{\pi' \varepsilon}^{t}$ for some $\pi' \geq \pi$, so $S \vDash \wedge K \rightarrow \phi$ is still defined.) But $\wedge K$ is equivalent to $\Delta \in B$, contradicting (5.2'). Thus, by hypothesis, $S \cup B \cup \{\neg \phi\} \subset T_{\pi \varepsilon}(S \cup C)$ for some $\mathbf{C} \subset \mathrm{E}$. $\mathrm{T}_{\pi \varepsilon}(\mathrm{S} \cup \mathrm{C})=\mathrm{T}_{\pi \varepsilon}(\mathrm{S} \cup \mathrm{B} \cup \mathrm{C})$ and $\neg \phi \in \mathrm{T}_{\pi \varepsilon}(\mathrm{S} \cup \mathrm{B} \cup \mathrm{C})$. Thus $S \cup B \cup \mathbf{C} \vDash \neg \phi$, and for some $K' \subset B$, $K'' \subset C$ we thus have $S \vDash \left(\Lambda K'\right) \wedge \left(\Lambda K''\right) \rightarrow \neg \phi$. Thus $S \vDash \phi \rightarrow \left(\neg \wedge K'\right) \vee \left(\neg \wedge K''\right)$. But by the definition of $B$, $S \vDash \phi \rightarrow \wedge K'$, thus $S \vDash \phi \rightarrow \neg \wedge K''$, and so $S \vDash \neg \wedge K'' \leftrightarrow \sigma'$ for some $\sigma' \in B$. But $S \cup B \cup C$ is consistent and $K'' \subset C$. Thus the result $S \vDash \neg \wedge K'' \leftrightarrow \sigma'$, $\sigma' \in B$ yields a contradiction.
+\end{proof}
+\begin{lemma}
+Let $\phi \in \mathrm{B}(\mathrm{E})$, $\mathrm{E}=\left\{\mathrm{D}_{\mathrm{n}} \mid \mathrm{n} \leq \omega+1\right\}$. Then $\chi \vDash \phi \leftrightarrow \mathrm{V}_{\mu \in J_{\phi}} \mathrm{D}_{\mathrm{J}}$, where $\chi$ is the conjunction of the axioms for a Hilbert system and $\mathrm{J}_{\phi} \subset \omega+2$.
+\end{lemma}
+\begin{proof}
+Let $\phi=V_{\mathrm{k} \in \mathrm{E}} \wedge_{\mu \in \mathrm{M}_{\mathrm{K}}} \theta_{\mathrm{n}_{\mathrm{k} \mu}}$, where $\theta_{\mathrm{n}_{\mathrm{k} \mu}}=\mathrm{D}_{\mathrm{n}_{\mathrm{k} \mu}}$ or $\theta_{\mathrm{n}_{\mathrm{k} \mu}}=\neg \mathrm{D}_{\mathrm{n}_{\mathrm{k} \mu}}$. Consider a disjunct $B_{k}=\Lambda_{\mu \in M_{k}} \theta_{n_{k \mu}}$. If for some $\mu$, $\theta_{n_{k \mu}}=D_{n_{k \mu}}$, then $\chi \vDash B_{k} \rightarrow D_{n_{k \mu}}$. We assert that $\chi \vDash D_{n_{k \mu}} \rightarrow B_{k}$ or $\chi \vDash \neg B_{k}$. Assume that not $\chi \vDash D_{n_{k \mu}} \rightarrow B_{k}$. Then since for any $\theta$, $\chi \wedge D_{n_{k \mu}} \rightarrow \theta$ or $\chi \wedge D_{n_{k \mu}} \rightarrow \neg \theta$, we have $\chi \vDash D_{n_{k \mu}} \rightarrow \neg B_{k}$, so $\chi \vDash \neg B_{k}$. If for no $\mu \in M$, $\theta_{n_{k \mu}}=D_{n_{k \mu}}$, then $B_{k}=\Lambda_{\mu \in M_{k}} \neg D_{n_{k \mu}}$. Eliminating repetitions, we have $\chi \vDash B_{k} \leftrightarrow \Lambda_{q \in Q} D_{q}$, where $Q \subset \omega+2$. However $\chi=\Lambda_{q \in Q} \neg D_{q} \leftrightarrow V_{r \in \omega+2 \rightarrow Q} D$, so $\chi \vDash B_{k} \leftrightarrow V_{p \in P} D_{p}$ in either of the above cases, or $\chi \vDash \neg D_{k}$ in which case $\chi \vDash B_{k} \leftrightarrow$ the empty disjunction. Thus
+$\chi \vDash \phi \leftrightarrow \bigvee_{\text{we } \mathrm{K}} \bigvee_{\mathrm{p} \in \mathrm{P}_{\mathrm{K}}} \mathrm{D}_{\mathrm{kp}}$. Eliminating repetitions again, we have $\chi \vDash \phi \leftrightarrow \bigvee_{j \in J_{\phi}} D_{j}$ for some $J_{\theta} \subset \omega+2$.
+\end{proof}
+\begin{theorem}
+Let $\phi \in \mathrm{L}_{\omega_{1} \omega_{1}}^{h}$ be a sentence. Then if $\chi$, E are as in Lemma 5.3, $\chi \vDash \phi \leftrightarrow \theta$ for some $\theta \in \mathrm{B}(\mathrm{E})$.
+\end{theorem}
+\begin{proof}
+Let $S=\{\chi\}$. $S$ is consistent. Assume $S \subset T$, $T$ consistent, and let $\mathfrak{A} \vDash \mathrm{T}$. Since $\chi \in \mathrm{T}$, $\mathfrak{A}$ is a Hilbert system. Thus $\mathfrak{A}$ has dimension n for some p. If $\mathrm{n} \leq \omega$, $\mathfrak{A} \vDash \mathrm{D}_{\mathrm{n}}$, and if $\mathrm{n}>\omega$, $\mathfrak{A} \vDash \mathrm{D}_{\omega+1}$. Thus let $\mathfrak{A} \vDash \mathrm{D}_{\mu}$, $\mu \leq \omega+1$. $\mathrm{T} \subset \mathrm{T}_{\omega_{1} \omega_{1}}\left(\chi \wedge \mathrm{D}_{\mu}\right)$; since if $\phi \in \mathrm{T}$, then $\mathfrak{A} \vDash \phi$, and thus if $\mathfrak{B} \vDash \chi \wedge \mathrm{D}_{\mu}$, $\mathfrak{A} \equiv_{\omega_{1} \omega_{1}} \mathfrak{B}$, so $\mathfrak{B} \vDash \phi$. Thus $\chi \wedge D_{\mu} \vDash \phi$. The preceding, together with Lemma 5.3 shows that $\mathrm{S}, \mathrm{E}$ satisfy the conditions of Theorem 5.2, and our theorem follows.
+\end{proof}
+\begin{definition}
+Let $\mathrm{L}_{\pi \varepsilon}^{t}$ be a language, $\varepsilon$ a regular cardinal. We say $\mathrm{L}_{\pi \varepsilon}^{t}$ is $\varepsilon$-compact iff for any set of sentences $S \subset L_{\pi \varepsilon}^{t}$, if $M(S)=0$ then $M\left(S'\right)=0$ for some $S' \subset S$ with $c\left(S'\right)<\varepsilon$. We say $L_{\pi \varepsilon}^{t}$ is compact iff it is $\pi$-compact.
+\end{definition}
+\begin{definition}
+Let $\mathrm{T} \subset \mathrm{L}_{\pi \varepsilon}^{t}$ be a set of sentences. Then T is $\varepsilon$-compact iff for any $S \subset T$, if $M(S)=0$, then $M\left(S'\right)=0$ for some $S' \subset S$ such that $c\left(S'\right)<\varepsilon$. T is compact iff T is $\pi$-compact.
+\end{definition}
+\begin{definition}
+Let $U \subset L_{\pi \varepsilon}^{t}$ be a set of sentences. Then $L_{\pi \varepsilon}^{t}$ is $U$, $\varepsilon$-compact iff for any set of sentences $S \subset L_{\pi \varepsilon}^{t}$; if $M(S) \cap M(U)=0$, then $M\left(S'\right) \cap M(U)=0$ for some $S' \subset S$ such that $c\left(S'\right)<\varepsilon$. $L_{\pi \varepsilon}^{t}$ is $U$-compact iff $L_{\pi \varepsilon}^{t}$ is $U, \pi$-compact.
+\end{definition}
+\begin{theorem}
+\begin{enumerate}
+\item $\mathrm{L}_{\omega_{1} \omega_{1}}^{h}$ is $\{\chi\}$-compact.
+\item If $\mathrm{T}=\left\{\theta \in \mathrm{L}_{\omega_{1} \omega_{1}}^{h} / \theta \text{ a sentence and } M(\theta) \subset M(\chi)\right\}$ then T is compact.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(a) Let $S' \subset S$. Define $Z'=\left\{\phi' / \phi \in S'\right\}$, where $\phi'=V_{j \in J_{\phi}} D_{j}$ ($J_{\phi} \subset \omega+2$) and $\chi \vDash \phi' \leftrightarrow \phi$. Then for any $S' \subset S$, $M(\chi) \cap M\left(S'\right)=M(\chi) \cap M\left(Z'\right)$. Thus $M(\mathrm{S}) \cap M(\chi)=0$ iff $M(Z) \cap M(\chi)=0$, i.e., iff for each $\mathrm{i} \leq \omega+1$ there is a $\phi_{1}' \in \mathrm{Z}$ such that for some Hilbert system $\mathfrak{A}_{\mathrm{i}}$, $\mathfrak{A}_{\mathrm{i}} \vDash \mathrm{D}_{\mathrm{i}}$ and not $\mathfrak{A}_{\mathrm{i}} \vDash \phi_{\mathrm{i}}$. Thus we know that $\mathrm{i} \notin \mathrm{J}_{\phi_{1}}$. Let $\mathrm{Z}''=\left\{\phi_{1}' \mid \mathrm{i}<\omega+2\right\}$. Then $M\left(\mathrm{Z}''\right) \cap M(\chi)=0$, so $M\left(S''\right) \cap M(\chi)=0$, where $S''$ and $Z''$ correspond under the definition at the beginning of the proof.
+Part (b) is an equivalent formulation, for if $S \subset T$, then $M(S) \cap M(\chi)=M(S)$, so (a) $\rightarrow$ (b). Conversely, let $S^{+}=\{\phi \mid \chi \wedge \phi \in S\}$. Then $S^{+} \subset T$ and $M\left(S^{+}\right)=M(\mathrm{S}) \cap M(\chi)$. Thus (b) $\rightarrow$ (a).
+\end{proof}
+Compactness has several advantages over $\varepsilon$-compactness. For example, elimination of quantifiers in a compact theory may be carried out within the language. The proof of this fact is similar to that of Theorem 5.2, except that with compactness we have that if $K \vDash \theta$ (i.e., if $M(K \cup\{\neg \theta\})=0$) then for some subset $K'$ of $K$ such that $c\left(K'\right)<\pi$, $K' \vDash \theta$. For an $\varepsilon$-compact set the same proof holds, but $\bigwedge K'$ (see Theorem 5.2) is no longer in the language. Finally for a compact theory T, if $S^{ \pm}=\left\{\bigwedge_{i \in I} \theta_{i} \mid \theta_{i} \in S \text{ and } c(I)<\pi\right\}$ for some $S \subset L_{\pi \varepsilon}^{t}$, then $S$ is consistent with $T$ $(M(S \cup T) \neq 0)$ iff each sentence of $S^{ \pm}$ is consistent with $T$.
+It should be noted that if even one constant $c_{0}$ is added to the language of Hilbert systems, the new theory is no longer compact. This results from the fact that it is possible to introduce a predicate into the language which is satisfied by only a single complex number. We do this as follows: for positive integers, there is the predicate $\mathrm{S}^{n}\left(\mathrm{v}_{\mathrm{i}}\right)$ which states $\left(I+I+\cdots+I=\mathrm{r}_{\mathrm{i}}\right)$ (where there are $\mathrm{n} I$'s in the formula). This may be extended to negative integers by stating (if $m$ is a negative integer) $\mathrm{S}^{\mathrm{m}}\left(v_{\mathrm{i}}\right)=\left(\exists v_{0}\right)\left(v_{0}+v_{\mathrm{i}}=0 \wedge \mathrm{S}^{-\mathrm{m}}\left(v_{0}\right)\right)(\mathrm{i}>0)$. For rationals we have $\mathrm{R}^{\mathrm{q}}\left(v_{\mathrm{i}}\right)=(\exists v / 2)\left(\mathrm{S}^{\mathrm{n}}\left(v_{0}\right) \wedge \mathrm{S}^{\mathrm{m}}\left(v_{1}\right) \wedge v_{\mathrm{i}} \cdot v_{0}=v_{1}\right)$ (where $\mathrm{i}>1$ and $\mathrm{q}=\mathrm{m} / \mathrm{n}$). The final extension of this system to arbitrary complex numbers is carried through with sequences: $\mathrm{P}^{\mathrm{c}}\left(\mathrm{v}_{\mathrm{j}}\right)=(\exists v / \omega 2)(\exists \mathrm{j}+1 / v / \mathrm{j}+3)\left(\forall v_{\omega 2}\right)\left(\mathrm{R}^{\mathrm{q}_{\mathrm{k}}}\left(v_{\mathrm{k}}\right) \wedge \mathrm{R}^{\mathrm{q}_{\omega+\mathrm{k}}}\left(v_{\omega+\mathrm{k}}\right) \wedge v_{\omega 2}>0 \rightarrow \bigvee_{\mathrm{n}<\omega} \Lambda_{\mathrm{n}<\mathrm{k}<\omega}\left(v_{\mathrm{j}+1}-v_{\mathrm{k}}\right)^{2}+\left(v_{\mathrm{j}+2}-v_{\omega+\mathrm{k}}\right)^{2}\omega 2$). Then the set of sentences $\mathrm{S}=\left\{\sim(\exists \omega 3 / v / \omega 3+1)\left(\left(v_{\omega 3}, v_{\omega 3}\right)=I \wedge \mathrm{P}^{\mathrm{c}}\left(v_{\omega 3+1}\right) \wedge v_{\omega 3+1} \bigcirc v_{\omega 3}=c_{0}\right) \mid \mathrm{c} \text{ a complex number}\right\} \cup \left\{H\left(c_{0}\right)\right\}$ has no models, but each countable subset of it has models, since each sentence says that our constant $c_{0}$ is not $\mathrm{cv}_{0}$ for any unit vector $\mathrm{v}_{0}$, and the last sentence states that it is a vector. Clearly any vector $c_{0}$ must be norm ($c_{0}$) ($c_{0} /$ norm ($c_{0}$)), but it can fail to be $\mathrm{cv}_{0}$ for any countable set of complex numbers c.
+The methods of this paper can easily be adapted to the theory of sets with no relation but equality, and essentially the same positive results are obtained.
+\begin{thebibliography}{9}
+\bibitem{1} N. Dunford and J. Schwartz, \textit{Linear operators, Part I}, Interscience Publishers, Inc., New York, 1958.
+\bibitem{2} W. Hanf, \textit{Some fundamental problems concerning languages with infinitely long expressions}, Doctoral Dissertation, University of California, Berkeley, 1962.
+\bibitem{3} C. Karp, \textit{Completeness proof in predicate logic with infinitely long expressions}, this Journal, vol. 32 (1967).
+\bibitem{4} R. Kopperman, \textit{Application of infinitary languages to analysis}, Doctoral Dissertation, M.I.T. Cambridge, Mass., 1965.
+\bibitem{5} A. Robinson, \textit{Complete theories}, North-Holland Publishing Co., Amsterdam, 1956.
+\bibitem{6} A. Tarski, \textit{Remarks on predicate logic with infinitely long expressions}, Colloquium Mathematicum, vol. 6 (1958), pp. 171-176.
+\bibitem{7} A. Tarski and R. Vaught, \textit{Arithmetic extensions of relational systems}, Compositio Mathematicae, vol. 13 (1957), pp. 81-102.
+\end{thebibliography}
+\end{document} 

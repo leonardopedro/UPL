@@ -17,13 +17,13 @@ sbt.xml
 /.metals
 /.vscode
 /test/examples/AAA_dummy.p
-#kopperman.tex
-#gitignore.bk
+kopperman.tex
+gitignore.bk
 *.log
 test/examples/Kopperman_Tutorial.p.log
 test/examples/Kopperman_Tutorial.p.aux
 test/examples/Kopperman_Tutorial.p.sref
-#test/examples/dhall.p
+test/examples/dhall.p
 #StateOfTheArt_Comparison.md
 #test/examples/Kopperman_Tutorial.p.tex
 #test/examples/Kopperman_Tutorial.p.pdf
