@@ -211,6 +211,12 @@ This architecture unifies three distinct needs in formalization:
 
 This resolves the tension between "Formal Rigor" and "Numerical Utility." We do not force Physics to become Discrete Logic; instead, we use UPL to map the Continuous Physics into a Discrete, Probability-Preserving Hilbert Space indexed by Logical Structures.
 
+\subsection{Contemporary Validation: nGPT and Hypersphere Learning}
+
+The proposed data format---representing information as normalized vectors in a Hilbert space---finds contemporary validation in modern machine learning architectures. Notably, \textbf{nGPT (normalized GPT)} from NvidiaAI demonstrates that large language models can learn entirely on the hypersphere, where all representations are normalized vectors. This architecture replaces traditional dot products with cosine similarity and maintains all embeddings, weights, and activations as unit-norm vectors on a hypersphere.
+
+The success of nGPT in language modeling tasks provides empirical evidence that normalized vector representations on hyperspheres are not merely a theoretical construct but a practical and effective data format for complex computational systems. This aligns perfectly with our proposal: just as nGPT uses the hypersphere geometry for learning language patterns, our framework uses Hilbert space geometry to unify logical structures (indexed by Dhall) with probabilistic amplitudes (governed by Mehler's measure). The key insight is that \textbf{normalization} (maintaining unit vectors) provides both numerical stability and a natural probabilistic interpretation---properties essential for both machine learning and formal reasoning under uncertainty.
+
 \appendix
 \section{Historical Foundations and Detailed Logic}
 
@@ -313,6 +319,7 @@ Kopperman proves that our axiomatic definitions fully capture the intended mathe
     \item \textbf{Ben Yaacov, I., et al.} (2008). \textit{Model theory for metric structures}.
     \item \textbf{Tanaka, K.} (2019). \textit{Shift-invert Rational Krylov method}.
     \item \textbf{Doerschuk, P. et al.} (2019). \textit{Evaluation of the discretization error in the computation of the eigenvalues of the fractional Laplacian}. Springer.
+    \item \textbf{Loshchilov, I., Hsieh, C., Sun, S., \& Ginsburg, B.} (2024). \textit{nGPT: Normalized Transformer with Representation Learning on the Hypersphere}. NvidiaAI. \texttt{https://github.com/lucidrains/nGPT-pytorch}
 \end{enumerate}
 
 \end{document}
