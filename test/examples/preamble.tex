@@ -1,0 +1,33 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Set & as a 'letter' (catcode 11) to prevent it from being treated as 
+% an alignment tab inside smodule and other environments.
+\catcode`&=11
+
+% UPL Language definition for listings
+\lstdefinelanguage{UPL}{
+  keywords={theory, type, include, forall, exists, module, |-},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]"
+}
+
+% upl environment for code sections
+\lstnewenvironment{upl}[1][]
+  {\lstset{
+    language=UPL,
+    basicstyle=\small\ttfamily,
+    frame=single,
+    breaklines=true,
+    literate={=>}{{$\Rightarrow$}}2,
+    #1
+  }}
+  {}
+
+% uplinline command for inline code
+\newcommand{\uplinline}{\lstinline[language=UPL,basicstyle=\ttfamily]}
