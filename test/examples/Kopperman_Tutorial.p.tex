@@ -12,19 +12,19 @@
 \maketitle
 
 \begin{abstract}
-The transition from structural frameworks to the computational "UniFormal" Proof Language (UPL) requires a data format that unifies Symbolic Logic with Probabilistic Physics. We propose a "Metric Exchange Format" where data is represented as vectors in a Separable Hilbert Space. In this architecture, \textbf{Dhall} expressions (canonical, normalizing) serve as the indices of the basis vectors, providing a rigorous definition of "Structure." The amplitudes are governed by \textbf{Mehler's (1866) spectral methods}, providing a rigorous definition of "Uncertainty." UPL acts as the Turing-complete host language that manipulates these vectors, allowing for the computational handling of uncertainty-aware formalizations without the artifacts of floating-point arithmetic.
+The transition from structural frameworks to the computational "UniFormal" Proof Language (UPL) requires a data format that unifies Symbolic Logic with Probabilistic Physics. We propose a "Metric Exchange Format" where data is represented as vectors in a Separable Hilbert Space. In this architecture, \textbf{Dhall} expressions (canonical, normalizing) serve as the indices of the basis vectors, providing a rigorous definition of "Structure." The amplitudes are governed by \textbf{Mehler's (1866) spectral methods}, providing a rigorous definition of "Uncertainty." UPL acts as the \textbf{Turing-complete host language} that manipulates these vectors. Unlike traditional total logics, UPL supports general recursion, `while` loops, and mutable state, allowing for the computational handling of uncertainty-aware formalizations without the artifacts of floating-point arithmetic.
 \end{abstract}
 
 \section{Introduction: The "Real" Bottleneck in UniFormal}
 
-The KWARC group's evolution toward the **UniFormal (UPL)** initiative aims to treat \textit{Computation} and \textit{Deduction} as first-class citizens. However, a semantic gap remains between the discrete world of Logic and the continuous world of Physics.
+The KWARC group's evolution toward the **UniFormal (UPL)** initiative aims to treat \textit{Computation} and \textit{Deduction} as first-class citizens. However, a semantic gap remains between the discrete, total world of Logic and the continuous, often undecidable world of Physics.
 
 Standard approaches rely on Real Numbers (approximated as floats) for physics, which strips away uncertainty information. We propose upgrading the fundamental data type to **Vectors in a Separable Hilbert Space**.
 
 Crucially, we distinguish between the \textbf{Data Format} and the \textbf{Language}:
 \begin{itemize}
-    \item \textbf{The Data Format (The Vector):} A static, rigorous mapping of Logical States (Dhall expressions) to Probabilistic Amplitudes.
-    \item \textbf{The Language (UPL):} The Turing-complete environment used to define, manipulate, and simulate these vectors.
+    \item \textbf{The Data Format (The Vector - Dhall):} A static, rigorous mapping of Logical States to Probabilistic Amplitudes. This layer is **total** and strongly normalizing, ensuring unique canonical forms.
+    \item \textbf{The Language (The Simulator - UPL):} The **Turing-complete environment** used to define, manipulate, and simulate these vectors. As seen in `test/examples/basics.p`, UPL supports imperative features like `while` loops, mutable `var`, and general recursion. This allows for powerful simulations but requires external validity predicates (the "Decidable Dense Subset") to ensure the computed objects represent valid mathematical structures.
 \end{itemize}
 
 \section{Theoretical Foundations}
@@ -61,11 +61,18 @@ The fundamental object passed between systems is the state $|\Psi\rangle$:
 \end{itemize}
 
 \subsection{UPL as the Manipulator}
-While Dhall is intentionally restricted (non-Turing complete) to ensure unique indexing, UPL is the \textbf{Turing-complete} language that manages the system. UPL defines the vector space and the operators, calculates the evolution of the vector, and handles I/O.
+While Dhall is intentionally restricted (non-Turing complete) to ensure unique indexing, UPL is the \textbf{Turing-complete} language that manages the system.
+\begin{itemize}
+    \item **Theories as Types/Interfaces:** As seen in `test/examples/AI.p`, Theories (like `SearchProblem`) define the *structure* or *schema* of the problem.
+    \item **Functions as Programs:** As seen in `test/examples/basics.p`, the implementation utilizes `while` loops, mutable state (`var`), and general recursion.
+\end{itemize}
+UPL defines the vector space and the operators, calculates the evolution of the vector through potentially non-terminating processes, and handles I/O. The "proof" is that the computed program (the UPL script) satisfies the type signature defined by the Theory, even if the program itself is not proven to terminate by the language's kernel.
 
 \section{Implementation Strategy}
 
-The following UPL implementation demonstrates this architecture. We explicitly construct the Complex Hilbert Space $\mathcal{H}$ starting from Complex Rational Numbers, realizing the "Decidable Dense Subset" strategy where the Complex Rationals (or finite Dhall ASTs) form the skeleton of the complete space.
+The following UPL implementation demonstrates this architecture. We explicitly construct the Complex Hilbert Space $\mathcal{H}$ starting from Complex Rational Numbers.
+
+\textbf{Note on Totality:} Since UPL is Turing-complete, the functions defined below (like `vec_index`) are programs that \textit{compute} values. Their validity as mathematical objects (i.e., that they terminate and converge) is not enforced by a totality checker but is ensured by adhering to the "Decidable Dense Subset" strategy. The Complex Rationals (or finite Dhall ASTs) form the computable skeleton of the complete space.
 
 \uplinline$  theory HilbertSpace {$
 \uplinline$    include Numbers.Complex $
@@ -308,6 +315,87 @@ Kopperman proves that our axiomatic definitions fully capture the intended mathe
     \item \textbf{Reflexive Real System}: Any structure satisfying the axioms is isomorphic to $\mathbb{R}$.
     \item \textbf{Hilbert System}: Any structure satisfying the axioms corresponds uniquely to a \textbf{Hilbert Space}.
 \end{enumerate}
+
+\section{Appendix B: Formalization of Hamiltonian Operators}
+
+This appendix provides a UPL formalization of key results from mathematical physics, demonstrating how the "Theories as Types" architecture captures advanced operator theory.
+
+\subsection{Basic Operator Theory}
+
+We define operators on our Hilbert Space $\mathcal{H}$. An operator serves as a schema for valid transformations.
+
+\uplinline$  theory OperatorTheory {$
+\uplinline$    include HilbertSpace$
+\uplinline$    type Operator = h_vector -> h_vector$
+\uplinline$    include Logic.Predicates$
+\uplinline$    $
+\uplinline$    // Domain is a predicate on vectors identifying the subspace where the operator is defined$
+\uplinline$    type Domain = h_vector -> prop$
+\uplinline$    $
+\uplinline$    // Basic properties$
+\uplinline$    Hermitian : Operator -> prop$
+\uplinline$    SelfAdjoint : Operator -> prop$
+\uplinline$    Positive : Operator -> prop$
+\uplinline$    // D is a core for N$
+\uplinline$    Core : (Operator, Domain) -> prop$
+\uplinline$    Included : (Domain, Domain) -> prop$
+\uplinline$    $
+\uplinline$    // Commutator: [A, B] = AB - BA$
+\uplinline$    Commutator = (A: Operator, B: Operator) -> phi -> minus(A(B(phi)), B(A(phi)))$
+\uplinline$    $
+\uplinline$    norm : h_vector -> num$
+\uplinline$  }$
+
+\subsection{Faris-Lavine Corollary 1.1}
+
+The following corollary from Faris and Lavine (1974) provides a condition for essential self-adjointness using commutators.
+
+\uplinline$  theory FarisLavine {$
+\uplinline$    include OperatorTheory$
+\uplinline$    $
+\uplinline$    EssentialSelfAdjoint : (Operator, Domain) -> prop$
+\uplinline$    $
+\uplinline$    corollary_1_1 : |- $
+\uplinline$      forall H, N : Operator.$
+\uplinline$      forall D : Domain.$
+\uplinline$      // Assumptions on Geometry$
+\uplinline$      Hermitian(H) & Positive(N) & SelfAdjoint(N) &$
+\uplinline$      Core(N, D) & Included(D, Domain(H)) &$
+\uplinline$      // (i) H is bounded relative to N$
+\uplinline$      (exists a, b. forall phi. D(phi) => norm(H(phi)) <= a * norm(N(phi)) + b * norm(phi)) &$
+\uplinline$      // (ii) Commutator is bounded relative to N$
+\uplinline$      (exists c, d. forall phi. D(phi) => norm(Commutator(H, N)(phi)) <= c * norm(N(phi)) + d * norm(phi))$
+\uplinline$      // Conclusion$
+\uplinline$      => EssentialSelfAdjoint(H, D)$
+\uplinline$  }$
+
+\subsection{Friedrichs Canonical Extension}
+
+The Friedrichs extension constructs a self-adjoint extension of any semi-bounded symmetric operator.
+
+\uplinline$  theory FriedrichsExtension {$
+\uplinline$    include OperatorTheory$
+\uplinline$    $
+\uplinline$    Symmetric : Operator -> prop$
+\uplinline$    Graph : Operator -> (h_vector, h_vector) -> prop$
+\uplinline$    Graph = op -> (x, y) -> y == op(x)$
+\uplinline$    $
+\uplinline$    // A sesquilinear form Q associated with S$
+\uplinline$    type Form = (h_vector, h_vector) -> complex$
+\uplinline$    AssociatedForm = (S: Operator) -> (u, v) -> h_inner(S(u), v)$
+\uplinline$    $
+\uplinline$    PreservesLowerBound : (Operator, Operator) -> prop$
+\uplinline$    $
+\uplinline$    friedrichs_extension : |- $
+\uplinline$      forall S : Operator.$
+\uplinline$      Positive(S) & Symmetric(S) =>$
+\uplinline$      exists H : Operator.$
+\uplinline$        SelfAdjoint(H) &$
+\uplinline$        // H extends S$
+\uplinline$        Included(Graph(S), Graph(H)) &$
+\uplinline$        // The extension preserves the lower bound of S$
+\uplinline$        PreservesLowerBound(S, H)$
+\uplinline$  }$
 
 \section*{References}
 
