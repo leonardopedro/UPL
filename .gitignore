@@ -26,6 +26,9 @@ test/examples/Kopperman_Tutorial.p.sref
 test/examples/Kopperman_Tutorial.p.bbl
 test/examples/Kopperman_Tutorial.p.blg
 test/examples/Kopperman_Tutorial.p.out
+kopperman.tex
+#test/examples/bib.bib
+#test/examples/utphysMM.bst
 #test/examples/dhall.p
 #StateOfTheArt_Comparison.md
 #test/examples/Kopperman_Tutorial.p.tex
