@@ -23,6 +23,9 @@ sbt.xml
 test/examples/Kopperman_Tutorial.p.log
 test/examples/Kopperman_Tutorial.p.aux
 test/examples/Kopperman_Tutorial.p.sref
+test/examples/Kopperman_Tutorial.p.bbl
+test/examples/Kopperman_Tutorial.p.blg
+test/examples/Kopperman_Tutorial.p.out
 #test/examples/dhall.p
 #StateOfTheArt_Comparison.md
 #test/examples/Kopperman_Tutorial.p.tex

@@ -3,10 +3,19 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{mciteplus}
 
 % Set & as a 'letter' (catcode 11) to prevent it from being treated as 
 % an alignment tab inside smodule and other environments.
 \catcode`&=11
+
+% Helper to set UPL-specific catcodes (useful inside environments)
+\newcommand{\uplsetup}{%
+  \catcode`&=11
+  \catcode`_=12
+  \catcode`^=12
+}
 
 % UPL Language definition for listings
 \lstdefinelanguage{UPL}{
@@ -17,6 +26,7 @@
   morestring=[b]"
 }
 
+\makeatletter
 % upl environment for code sections
 \lstnewenvironment{upl}[1][]
   {\lstset{
@@ -28,6 +38,7 @@
     #1
   }}
   {}
+\makeatother
 
 % uplinline command for inline code
 \newcommand{\uplinline}{\lstinline[language=UPL,basicstyle=\ttfamily]}

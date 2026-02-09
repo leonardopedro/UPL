@@ -2,8 +2,7 @@
 \input{preamble}
 
 \begin{document}
-\begin{smodule}[id=Kopperman2]
-\catcode`&=11 \catcode`_=12 \catcode`^=12
+
 
 \title{\textbf{Beyond Real Numbers: A Hilbert-Space Exchange Format for the UniFormal (UPL) Framework}}
 \author{Leonardo Pedro}
@@ -12,19 +11,19 @@
 \maketitle
 
 \begin{abstract}
-The transition from structural frameworks to the computational "UniFormal" Proof Language (UPL) requires a data format that unifies Symbolic Logic with Probabilistic Physics. We propose a "Metric Exchange Format" where data is represented as vectors in a Separable Hilbert Space. In this architecture, \textbf{Dhall} expressions (canonical, normalizing) serve as the indices of the basis vectors, providing a rigorous definition of "Structure." The amplitudes are governed by \textbf{Mehler's (1866) spectral methods}, providing a rigorous definition of "Uncertainty." UPL acts as the \textbf{Turing-complete host language} that manipulates these vectors. Unlike traditional total logics, UPL supports general recursion, `while` loops, and mutable state, allowing for the computational handling of uncertainty-aware formalizations without the artifacts of floating-point arithmetic.
+The transition from structural frameworks to the computational "UniFormal" Proof Language (UPL) requires a data format that unifies Symbolic Logic with Probabilistic Physics. We propose a "Metric Exchange Format" where data is represented as vectors in a Separable Hilbert Space. In this architecture, \textbf{Dhall} expressions (canonical, normalizing) serve as the indices of the basis vectors, providing a rigorous definition of "Structure." The amplitudes are governed by \textbf{Mehler's (1866) spectral methods}, providing a rigorous definition of "Uncertainty." UPL acts as the \textbf{Turing-complete host language} that manipulates these vectors. Unlike traditional total logics, UPL supports general recursion, \texttt{while} loops, and mutable state, allowing for the computational handling of uncertainty-aware formalizations without the artifacts of floating-point arithmetic.
 \end{abstract}
 
 \section{Introduction: The "Real" Bottleneck in UniFormal}
 
 The KWARC group's evolution toward the **UniFormal (UPL)** initiative aims to treat \textit{Computation} and \textit{Deduction} as first-class citizens. However, a semantic gap remains between the discrete, total world of Logic and the continuous, often undecidable world of Physics.
 
-Standard approaches rely on Real Numbers (approximated as floats) for physics, which strips away uncertainty information. We propose upgrading the fundamental data type to **Vectors in a Separable Hilbert Space**.
+Standard approaches rely on Real Numbers (approximated as floats, see \cite{hennigProbabilisticNumericsComputation2022}) for physics, which strips away uncertainty information. We propose upgrading the fundamental data type to **Vectors in a Separable Hilbert Space**.
 
 Crucially, we distinguish between the \textbf{Data Format} and the \textbf{Language}:
 \begin{itemize}
     \item \textbf{The Data Format (The Vector - Dhall):} A static, rigorous mapping of Logical States to Probabilistic Amplitudes. This layer is **total** and strongly normalizing, ensuring unique canonical forms.
-    \item \textbf{The Language (The Simulator - UPL):} The **Turing-complete environment** used to define, manipulate, and simulate these vectors. As seen in `test/examples/basics.p`, UPL supports imperative features like `while` loops, mutable `var`, and general recursion. This allows for powerful simulations but requires external validity predicates (the "Decidable Dense Subset") to ensure the computed objects represent valid mathematical structures.
+    \item \textbf{The Language (The Simulator - UPL):} The **Turing-complete environment** used to define, manipulate, and simulate these vectors. As seen in \texttt{test/examples/basics.p}, UPL supports imperative features like \texttt{while} loops, mutable \texttt{var}, and general recursion. This allows for powerful simulations but requires external validity predicates (the "Decidable Dense Subset") to ensure the computed objects represent valid mathematical structures.
 \end{itemize}
 
 \section{Theoretical Foundations}
@@ -63,8 +62,8 @@ The fundamental object passed between systems is the state $|\Psi\rangle$:
 \subsection{UPL as the Manipulator}
 While Dhall is intentionally restricted (non-Turing complete) to ensure unique indexing, UPL is the \textbf{Turing-complete} language that manages the system.
 \begin{itemize}
-    \item **Theories as Types/Interfaces:** As seen in `test/examples/AI.p`, Theories (like `SearchProblem`) define the *structure* or *schema* of the problem.
-    \item **Functions as Programs:** As seen in `test/examples/basics.p`, the implementation utilizes `while` loops, mutable state (`var`), and general recursion.
+    \item **Theories as Types/Interfaces:** As seen in \texttt{test/examples/AI.p}, Theories (like \texttt{SearchProblem}) define the *structure* or *schema* of the problem.
+    \item **Functions as Programs:** As seen in \texttt{test/examples/basics.p}, the implementation utilizes \texttt{while} loops, mutable state (\texttt{var}), and general recursion.
 \end{itemize}
 UPL defines the vector space and the operators, calculates the evolution of the vector through potentially non-terminating processes, and handles I/O. The "proof" is that the computed program (the UPL script) satisfies the type signature defined by the Theory, even if the program itself is not proven to terminate by the language's kernel.
 
@@ -72,9 +71,10 @@ UPL defines the vector space and the operators, calculates the evolution of the 
 
 The following UPL implementation demonstrates this architecture. We explicitly construct the Complex Hilbert Space $\mathcal{H}$ starting from Complex Rational Numbers.
 
-\textbf{Note on Totality:} Since UPL is Turing-complete, the functions defined below (like `vec_index`) are programs that \textit{compute} values. Their validity as mathematical objects (i.e., that they terminate and converge) is not enforced by a totality checker but is ensured by adhering to the "Decidable Dense Subset" strategy. The Complex Rationals (or finite Dhall ASTs) form the computable skeleton of the complete space.
-
-\uplinline$  theory HilbertSpace {$
+\textbf{Note on Totality:} Since UPL is Turing-complete, the functions defined below (like \texttt{vec\_index}) are programs that \textit{compute} values. Their validity as mathematical objects (i.e., that they terminate and converge) is not enforced by a totality checker but is ensured by adhering to the "Decidable Dense Subset" strategy. The Complex Rationals (or finite Dhall ASTs) form the computable skeleton of the complete space.
+\begin{smodule}[id=Kopperman2]
+\uplsetup
+\catcode`\{=12 \uplinline$  theory HilbertSpace {$ \catcode`\{=1
 \uplinline$    include Numbers.Complex $
 
 Our fundamental object is a **Double-Indexed Sequence** $s(k, n)$, representing the $n$-th complex rational approximation of the $k$-th coordinate of a vector.
@@ -89,7 +89,7 @@ To comply with $L_{\omega_1, \omega_1}$ logic, we avoid passing infinite-dimensi
 \uplinline$    vec_index : (h_vector, int) -> complex$
 \uplinline$    vec_index = (v, k) -> n -> v(k, n)$
 
-This function takes a vector `v` and a coordinate index `k`, returning the `k`-th coordinate as a `complex` number (a Cauchy sequence). This allows functions to work with a finite number of arguments, where each argument represents an infinite-dimensional object accessed through the index.
+This function takes a vector \texttt{v} and a coordinate index \texttt{k}, returning the \texttt{k}-th coordinate as a \texttt{complex} number (a Cauchy sequence). This allows functions to work with a finite number of arguments, where each argument represents an infinite-dimensional object accessed through the index.
 
 For convenience, we also define a low-level index for extracting individual approximations:
 \uplinline$    elem_at = (v: h_vector, k: int, n: int) -> num$
@@ -204,7 +204,7 @@ In UPL, using the imaginary unit $i = \texttt{comp(z, o)}$:
 
 The Pythagorean identity follows from Euler's formula:
 \uplinline$    pythagorean : |- forall c. complex_equiv(complex_sum(complex_prod(sin(c), complex_conj(sin(c))), complex_prod(cos(c), complex_conj(cos(c)))), n -> o)$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 \end{smodule}
 
 \section{Discussion}
@@ -361,6 +361,7 @@ Kopperman proves that our axiomatic definitions fully capture the intended mathe
 \end{enumerate}
 
 \section{Appendix B: The Harmonic Oscillator and Lightweight QFT}
+\uplsetup
 
 This appendix demonstrates the implementation of a "Lightweight QFT" workflow in UPL, mirroring the set-theoretic flexibility often associated with systems like Mizar. We formalize the harmonic oscillator on an $\ell^2$ basis, define unbounded operators on a dense core, and apply the Faris-Lavine theorem to prove essential self-adjointness of a polynomial Hamiltonian.
 
@@ -368,7 +369,7 @@ This appendix demonstrates the implementation of a "Lightweight QFT" workflow in
 
 We define the canonical basis $e_n$ and the core domain $\mathcal{D}_0$ of finite linear combinations.
 
-\uplinline$  theory HarmonicOscillator {$
+\catcode`\{=12 \uplinline$  theory HarmonicOscillator {$ \catcode`\{=1
 \uplinline$    include HilbertSpace$
 \uplinline$    include Numbers.Nat$
 \uplinline$    $
@@ -380,13 +381,13 @@ We define the canonical basis $e_n$ and the core domain $\mathcal{D}_0$ of finit
 \uplinline$    // Defined as vectors with finite support (eventually zero)$
 \uplinline$    HO_Core : h_vector -> prop$
 \uplinline$    HO_Core = v -> has_finite_support(v)$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 
 \subsection{Phase 2: Operator Algebra on the Core}
 
 We define the Number operator $N$ and the Creation/Annihilation operators $a, a^*$ as partial functions whose domain is the Core.
 
-\uplinline$  theory OperatorAlgebra {$
+\catcode`\{=12 \uplinline$  theory OperatorAlgebra {$ \catcode`\{=1
 \uplinline$    include HarmonicOscillator$
 \uplinline$    include OperatorTheory$
 \uplinline$    $
@@ -409,13 +410,13 @@ We define the Number operator $N$ and the Creation/Annihilation operators $a, a^
 \uplinline$    canonical_commutation : |- $
 \uplinline$      forall v. HO_Core(v) => $
 \uplinline$      complex_equiv(Commutator(a_op, a_star)(v), v)$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 
 \subsection{Phase 3: Essential Self-Adjointness Definitions}
 
 We define the necessary predicates to establish Essential Self-Adjointness via the closure of the operator's graph.
 
-\uplinline$  theory ESA_Definitions {$
+\catcode`\{=12 \uplinline$  theory ESA_Definitions {$ \catcode`\{=1
 \uplinline$    include OperatorAlgebra$
 \uplinline$    $
 \uplinline$    Graph = (A: Operator) -> (x, y) -> y == A(x)$
@@ -428,13 +429,13 @@ We define the necessary predicates to establish Essential Self-Adjointness via t
 \uplinline$    $
 \uplinline$    EssentiallySelfAdjoint = (A: Operator, D: Domain) ->$
 \uplinline$      SelfAdjoint(Closure(A))$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 
 \subsection{Phase 4: Faris-Lavine Estimate for HO}
 
 We specialize the Faris-Lavine theorem (Corollary 1.1) to our Harmonic Oscillator context.
 
-\uplinline$  theory HO_Analysis {$
+\catcode`\{=12 \uplinline$  theory HO_Analysis {$ \catcode`\{=1
 \uplinline$    include ESA_Definitions$
 \uplinline$    $
 \uplinline$    // Lemma: N is Self-Adjoint on the Core$
@@ -447,13 +448,13 @@ We specialize the Faris-Lavine theorem (Corollary 1.1) to our Harmonic Oscillato
 \uplinline$      Hermitian(H) & Included(HO_Core, Domain(H)) &$
 \uplinline$      (exists c. forall phi. HO_Core(phi) => norm(Commutator(H, N_op)(phi)) <= c * norm(N_op(phi))) $
 \uplinline$      => EssentiallySelfAdjoint(H, HO_Core)$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 
 \subsection{Phase 5: QFT Hamiltonian Application}
 
 Finally, we construct a polynomial interaction Hamiltonian $V(a, a^*)$ and prove it defines a unique quantum system.
 
-\uplinline$  theory QFT_Model {$
+\catcode`\{=12 \uplinline$  theory QFT_Model {$ \catcode`\{=1
 \uplinline$    include HO_Analysis$
 \uplinline$    $
 \uplinline$    // Interaction Potential V (e.g., phi^4 polynomial in a, a*)$
@@ -467,13 +468,14 @@ Finally, we construct a polynomial interaction Hamiltonian $V(a, a^*)$ and prove
 \uplinline$    $
 \uplinline$    // The Main Result: The QFT Model exists and is unique$
 \uplinline$    QFT_Existence : |- EssentiallySelfAdjoint(H_total, HO_Core)$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 
 \section{Appendix C: Algebraic Construction of Transcendentals}
+\uplsetup
 
 We construct transcendental functions algebraically, avoiding infinite limit definitions where possible.
 
-\uplinline$  theory AlgebraicTranscendentals {$
+\catcode`\{=12 \uplinline$  theory AlgebraicTranscendentals {$ \catcode`\{=1
 \uplinline$    include HilbertSpace$
 \uplinline$    $
 \uplinline$    // 1. Chebyshev Polynomials (Recursive Definition)$
@@ -507,19 +509,23 @@ We construct transcendental functions algebraically, avoiding infinite limit def
 \uplinline$    // Uses the real exponential (limit series) and the algebraic imaginary component$
 \uplinline$    ExpComplex = (c: complex) -> complex$
 \uplinline$    ExpComplex = c -> times(exp_real(real_part(c)), ExpImag(imag_part(c)))$
-\uplinline$  }$
+\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
 
 \section*{References}
 
 \begin{enumerate}
-    \item \textbf{Mehler, F. G.} (1866). \textit{Ueber die Entwicklung einer Function von beliebig vielen Variablen nach Laplaceschen Functionen h\"oherer Ordnung}. J. Reine Angew. Math, 66, 161-176.
-    \item \textbf{Kopperman, R.} (1967). \textit{The $\mathrm{L}_{\omega_1 \omega_1}$-Theory of Hilbert Spaces}. Journal of Symbolic Logic.
+    \item \cite{mehlerUeberEntwicklungFunction1866}
+    \item \cite{koppermanLTheoryHilbertSpaces1967}
     \item \textbf{Gabriel Gonzalez.} \textit{The Dhall Configuration Language}. \texttt{https://dhall-lang.org}
     \item \textbf{Rabe, F. et al.} (UniFormal / KWARC). \textit{The MMT Language and System}.
     \item \textbf{Ben Yaacov, I., et al.} (2008). \textit{Model theory for metric structures}.
-    \item \textbf{Tanaka, K.} (2019). \textit{Shift-invert Rational Krylov method}.
+    \item \cite{hashimotoShiftinvertRationalKrylov2019}
     \item \textbf{Doerschuk, P. et al.} (2019). \textit{Evaluation of the discretization error in the computation of the eigenvalues of the fractional Laplacian}. Springer.
-    \item \textbf{Loshchilov, I., Hsieh, C., Sun, S., \& Ginsburg, B.} (2024). \textit{nGPT: Normalized Transformer with Representation Learning on the Hypersphere}. NvidiaAI. \texttt{https://github.com/lucidrains/nGPT-pytorch}
+    \item \cite{loshchilovNGPTNormalizedTransformer2024}
 \end{enumerate}
+
+
+\bibliography{bib}{}
+\bibliographystyle{utphysMM}
 
 \end{document}
