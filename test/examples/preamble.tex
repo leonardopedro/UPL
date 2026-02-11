@@ -11,10 +11,17 @@
 \catcode`&=11
 
 % Helper to set UPL-specific catcodes (useful inside environments)
-\newcommand{\uplsetup}{%
+\newcommand{\uplsetup}[1][]{%
   \catcode`&=11
   \catcode`_=12
   \catcode`^=12
+  \def\temp{#1}\def\braces{braces}%
+  \ifx\temp\braces \catcode`\{=12 \catcode`\}=12 \fi
+}
+
+\newcommand{\uplstop}{%
+  \catcode`\{=1
+  \catcode`\}=2
 }
 
 % UPL Language definition for listings

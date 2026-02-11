@@ -74,26 +74,17 @@ The following UPL implementation demonstrates this architecture. We explicitly c
 \textbf{Note on Totality:} Since UPL is Turing-complete, the functions defined below (like \texttt{vec\_index}) are programs that \textit{compute} values. Their validity as mathematical objects (i.e., that they terminate and converge) is not enforced by a totality checker but is ensured by adhering to the "Decidable Dense Subset" strategy. The Complex Rationals (or finite Dhall ASTs) form the computable skeleton of the complete space.
 \begin{smodule}[id=Kopperman2]
 \uplsetup
-\catcode`\{=12 \uplinline$  theory HilbertSpace {$ \catcode`\{=1
-\uplinline$    include Numbers.Complex $
+\uplinline|  theory HilbertSpace { | \\
+\uplinline$    include Basic $\\
+\uplinline$    include Numbers.Complex $\\
+\uplinline$    type num = (re: rat, im: rat) $\\
 
 Our fundamental object is a **Double-Indexed Sequence** $s(k, n)$, representing the $n$-th complex rational approximation of the $k$-th coordinate of a vector.
+\uplinline$    type scalar = (nat) -> num$\\
+\uplinline$    type vector = (nat) -> scalar$\\
+\uplinline$    vec : scalar -> vector = (s:scalar) -> ((k: nat) -> {if(k==0) return s; z})$\\
+\uplinline$    row: (vector, nat) -> scalar = (v, n) -> ((k: nat) -> v(k)(n))$
 
-\uplinline$    type h_vector = (int, int) -> num$
-\uplinline$    row = (s, n) -> k -> s(k, n)$
-
-\paragraph{Index Function for Vector Coordinates}
-
-To comply with $L_{\omega_1, \omega_1}$ logic, we avoid passing infinite-dimensional objects as function arguments. Instead, we define an index function that extracts a single coordinate (which is itself a Cauchy sequence of complex rationals) from a vector:
-
-\uplinline$    vec_index : (h_vector, int) -> complex$
-\uplinline$    vec_index = (v, k) -> n -> v(k, n)$
-
-This function takes a vector \texttt{v} and a coordinate index \texttt{k}, returning the \texttt{k}-th coordinate as a \texttt{complex} number (a Cauchy sequence). This allows functions to work with a finite number of arguments, where each argument represents an infinite-dimensional object accessed through the index.
-
-For convenience, we also define a low-level index for extracting individual approximations:
-\uplinline$    elem_at = (v: h_vector, k: int, n: int) -> num$
-\uplinline$    elem_at = (v, k, n) -> v(k, n)$
 
 \subsection{The Validity Predicates}
 
@@ -102,24 +93,43 @@ To ensure we are selecting valid members of the completion (and not just random 
 \paragraph{1. Square Integrability (The Skeleton)}
 Each approximation row must be a finite-norm vector in the underlying complex rational space. The norm is computed using the complex inner product.
 
-Rather than passing entire rows as arguments, we use the row accessor and work with coordinate indices:
 
-\uplinline$    is_l2_at_level : (h_vector, int) -> type$
-\uplinline$    c_inner_at : (h_vector, h_vector, int) -> num$
-\uplinline$    c_inner_at = (v1, v2, n) -> sum_over_k(times(conj(v1(k,n)), v2(k,n)))$
-\uplinline$    c_sq_norm_at = (v: h_vector, n: int) -> c_inner_at(v, v, n)$
+
+\uplinline$    is_l2_at_level : (vec, nat) -> bool$\\
+\begin{upl}
+   inner_at2 : ((vec, vec, nat, nat) -> num) = (v1, v2, k, n) -> {
+    // var/val introduce immutable/mutable variables that are visible for the remainder of the block.
+    // Types can be inferred, initialization is mandatory.
+    var result : num = 0
+    var i : nat = 0
+    // if and while can be used as usual.
+    while (i<=k) {
+      result = result+ times(conj(v1(i)(n)), v2(i)(n))
+      i = i+1
+    }
+    // no "return" needed for the last expression
+    result
+  }
+  inner_at : ((vec, vec, nat) -> scalar) = (v1, v2, n) -> (k: nat) -> inner_at2(v1, v2, k, n)
+\end{upl}
+
+\uplinline$    c_sq_norm_at = (v: vector, n: nat) -> c_inner_at(v, v, n)$\\
+\uplinline$    modulus_sq = (c: num) -> times(c, conj(c))$
+
 
 \paragraph{2. Cauchy Convergence (The Limit)}
 The sequence of rows must converge. Using the index function, we express convergence at the coordinate level:
 
-\uplinline$    coord_cauchy = (v: h_vector, k: int) ->$ \\
-\uplinline$     forall eps. leq(z, eps) & !(eps == z) =>$ \\
-\uplinline$         exists N. forall n,m.$ \\
-\uplinline$           leq(N, n) & leq(N, m) =>$ \\
-\uplinline$           c_modulus(minus(v(k,n), v(k,m))) < eps$
+\begin{upl}
+    cauchy: scalar -> bool = (s: scalar) ->{
+     forall eps. eps>z =>
+         exists N. forall n,m.
+           leq(N, n) & leq(N, m) =>
+           modulus_sq(minus(s(n), s(m))) < eps
+           }
+\end{upl}
 
-\uplinline$    valid_h_vector = v -> (forall n. is_l2_at_level(v, n)) &$ \\
-\uplinline$                           (forall k. coord_cauchy(v, k))$
+\uplinline$    valid_h_vector: |- forall v,n. cauchy(c_sq_norm_at(v, n)) & cauchy(v(n))$
 
 \subsection{Emergence of Complex Scalars}
 
@@ -127,18 +137,16 @@ Traditional approaches postulate Complex Numbers ($\mathbb{C}$) as a black box. 
 
 The inner product of two vectors is computed using the index function to access coordinates. Rather than passing infinite-dimensional rows, we use coordinate-level access:
 
-\uplinline$    h_inner_at = (v1, v2, n: int) -> c_inner_at(v1, v2, n)$
-\uplinline$    h_inner = (v1, v2) -> n -> h_inner_at(v1, v2, n)$
+\uplinline$    inner : (vector, vector) -> scalar = (v1, v2) -> n -> inner_at(v1, v2, n)$
 
-Thus, we define the Complex numbers simply as the scalar field of our completion:
-\uplinline$    type complex = int -> num$
 
-We must also define when two Cauchy sequences represent the same Complex Number. They are equivalent if their difference converges to zero. For complex numbers, we measure convergence using the modulus (absolute value).
+We must also define when two Cauchy sequences represent the same Complex Number.
+They are equivalent if their difference converges to zero.
+For complex numbers, we measure convergence using the modulus (absolute value).
 
-\uplinline$    c_modulus = (c: num) -> sqrt(times(c, conj(c)))$
-\uplinline$    complex_zero = (c: complex) -> forall eps. leq(z,eps) & !(eps==z) => $ \\
-\uplinline$       exists N. forall n. leq(N,n) => c_modulus(c(n)) < eps $
-\uplinline$    complex_diff = (c1, c2) -> n -> minus(c1(n), c2(n))$
+\uplinline$    complex_zero = (c: scalar) -> forall eps. eps>z => $ \\
+\uplinline$       exists N. forall n. leq(N,n) => modulus_sq(c(n)) < eps $ \\
+\uplinline$    complex_diff = (c1, c2) -> k -> (n -> minus(c1(k)(n), c2(k)(n)))$\\
 \uplinline$    complex_equiv = (c1, c2) -> complex_zero(complex_diff(c1, c2))$
 
 
@@ -151,8 +159,8 @@ A vector has finite support if its components eventually become (equivalent to) 
 Using the index function, we extract coordinates without passing infinite-dimensional objects:
 
 \uplinline$    has_finite_support = (v: h_vector) ->$ \\
-\uplinline$      exists K. forall k. leq(K, k) => complex_zero(vec_index(v, k))$
-\uplinline$    basis_vec = i -> (k, n) -> (if (k == i) o else z)$
+\uplinline$      exists K. forall k. leq(K, k) => complex_zero(vec_index(v, k))$\\
+\uplinline$    basis_vec = i -> (k, n) -> (if (k == i) o else z)$\\
 \uplinline$    dense_subset_axiom : |- forall s. has_finite_support(s) => valid_h_vector(s)$
 
 \subsection{Transcendental Functions}
@@ -162,15 +170,15 @@ Having constructed the Complex numbers as Cauchy sequences of Complex Rationals,
 \paragraph{Factorial and Power}
 First, we need factorial for series coefficients and exponentiation:
 
-\uplinline$    factorial = (n: int) -> if (leq(n, z)) o else times(n, factorial(p(n)))$
-\uplinline$    power = (x: num, n: int) -> if (leq(n, z)) o else times(x, power(x, p(n)))$
+\uplinline$    factorial = (n: int[0;]) -> if (leq(n, z)) o else times(n, factorial(p(n)))$
+\uplinline$    power = (x: rat, n: int[0;]) -> if (leq(n, z)) o else times(x, power(x, p(n)))$
 
 \paragraph{Complex Exponential}
 The complex exponential is defined via its power series: $\exp(z) = \sum_{n=0}^{\infty} \frac{z^n}{n!}$
 
-For a complex number $c$ (a Cauchy sequence of complex rationals), we define $\exp(c)$ as the Cauchy sequence where each approximation is the partial sum of the series.
+For a complex ratber $c$ (a Cauchy sequence of complex rationals), we define $\exp(c)$ as the Cauchy sequence where each approximation is the partial sum of the series.
 
-\uplinline$    exp_partial = (x: num, N: int) -> $\\
+\uplinline$    exp_partial = (x: rat, N: int[0;]) -> $\\
 \uplinline$      if (leq(N, z)) o else plus(frac(power(x, N), factorial(N)), exp_partial(x, p(N)))$
 \uplinline$    exp = (c: complex) -> n -> exp_partial(c(n), n)$
 
@@ -204,7 +212,7 @@ In UPL, using the imaginary unit $i = \texttt{comp(z, o)}$:
 
 The Pythagorean identity follows from Euler's formula:
 \uplinline$    pythagorean : |- forall c. complex_equiv(complex_sum(complex_prod(sin(c), complex_conj(sin(c))), complex_prod(cos(c), complex_conj(cos(c)))), n -> o)$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }| 
 \end{smodule}
 
 \section{Discussion}
@@ -361,7 +369,6 @@ Kopperman proves that our axiomatic definitions fully capture the intended mathe
 \end{enumerate}
 
 \section{Appendix B: The Harmonic Oscillator and Lightweight QFT}
-\uplsetup
 
 This appendix demonstrates the implementation of a "Lightweight QFT" workflow in UPL, mirroring the set-theoretic flexibility often associated with systems like Mizar. We formalize the harmonic oscillator on an $\ell^2$ basis, define unbounded operators on a dense core, and apply the Faris-Lavine theorem to prove essential self-adjointness of a polynomial Hamiltonian.
 
@@ -369,7 +376,7 @@ This appendix demonstrates the implementation of a "Lightweight QFT" workflow in
 
 We define the canonical basis $e_n$ and the core domain $\mathcal{D}_0$ of finite linear combinations.
 
-\catcode`\{=12 \uplinline$  theory HarmonicOscillator {$ \catcode`\{=1
+\uplinline|  theory HarmonicOscillator {|
 \uplinline$    include HilbertSpace$
 \uplinline$    include Numbers.Nat$
 \uplinline$    $
@@ -381,13 +388,13 @@ We define the canonical basis $e_n$ and the core domain $\mathcal{D}_0$ of finit
 \uplinline$    // Defined as vectors with finite support (eventually zero)$
 \uplinline$    HO_Core : h_vector -> prop$
 \uplinline$    HO_Core = v -> has_finite_support(v)$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }| 
 
 \subsection{Phase 2: Operator Algebra on the Core}
 
 We define the Number operator $N$ and the Creation/Annihilation operators $a, a^*$ as partial functions whose domain is the Core.
 
-\catcode`\{=12 \uplinline$  theory OperatorAlgebra {$ \catcode`\{=1
+\uplinline| theory OperatorAlgebra {|
 \uplinline$    include HarmonicOscillator$
 \uplinline$    include OperatorTheory$
 \uplinline$    $
@@ -410,13 +417,13 @@ We define the Number operator $N$ and the Creation/Annihilation operators $a, a^
 \uplinline$    canonical_commutation : |- $
 \uplinline$      forall v. HO_Core(v) => $
 \uplinline$      complex_equiv(Commutator(a_op, a_star)(v), v)$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }|
 
 \subsection{Phase 3: Essential Self-Adjointness Definitions}
 
 We define the necessary predicates to establish Essential Self-Adjointness via the closure of the operator's graph.
 
-\catcode`\{=12 \uplinline$  theory ESA_Definitions {$ \catcode`\{=1
+\uplinline| theory ESA_Definitions {|
 \uplinline$    include OperatorAlgebra$
 \uplinline$    $
 \uplinline$    Graph = (A: Operator) -> (x, y) -> y == A(x)$
@@ -429,13 +436,13 @@ We define the necessary predicates to establish Essential Self-Adjointness via t
 \uplinline$    $
 \uplinline$    EssentiallySelfAdjoint = (A: Operator, D: Domain) ->$
 \uplinline$      SelfAdjoint(Closure(A))$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }| 
 
 \subsection{Phase 4: Faris-Lavine Estimate for HO}
 
 We specialize the Faris-Lavine theorem (Corollary 1.1) to our Harmonic Oscillator context.
 
-\catcode`\{=12 \uplinline$  theory HO_Analysis {$ \catcode`\{=1
+\uplinline| theory HO_Analysis {|
 \uplinline$    include ESA_Definitions$
 \uplinline$    $
 \uplinline$    // Lemma: N is Self-Adjoint on the Core$
@@ -448,13 +455,13 @@ We specialize the Faris-Lavine theorem (Corollary 1.1) to our Harmonic Oscillato
 \uplinline$      Hermitian(H) & Included(HO_Core, Domain(H)) &$
 \uplinline$      (exists c. forall phi. HO_Core(phi) => norm(Commutator(H, N_op)(phi)) <= c * norm(N_op(phi))) $
 \uplinline$      => EssentiallySelfAdjoint(H, HO_Core)$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }| 
 
 \subsection{Phase 5: QFT Hamiltonian Application}
 
 Finally, we construct a polynomial interaction Hamiltonian $V(a, a^*)$ and prove it defines a unique quantum system.
 
-\catcode`\{=12 \uplinline$  theory QFT_Model {$ \catcode`\{=1
+\uplinline| theory QFT_Model {| 
 \uplinline$    include HO_Analysis$
 \uplinline$    $
 \uplinline$    // Interaction Potential V (e.g., phi^4 polynomial in a, a*)$
@@ -468,19 +475,18 @@ Finally, we construct a polynomial interaction Hamiltonian $V(a, a^*)$ and prove
 \uplinline$    $
 \uplinline$    // The Main Result: The QFT Model exists and is unique$
 \uplinline$    QFT_Existence : |- EssentiallySelfAdjoint(H_total, HO_Core)$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }| 
 
 \section{Appendix C: Algebraic Construction of Transcendentals}
-\uplsetup
 
 We construct transcendental functions algebraically, avoiding infinite limit definitions where possible.
 
-\catcode`\{=12 \uplinline$  theory AlgebraicTranscendentals {$ \catcode`\{=1
+\uplinline| theory AlgebraicTranscendentals {| 
 \uplinline$    include HilbertSpace$
 \uplinline$    $
 \uplinline$    // 1. Chebyshev Polynomials (Recursive Definition)$
 \uplinline$    // T_n(x) = 2x T_{n-1}(x) - T_{n-2}(x)$
-\uplinline$    ChebyshevT = (n: int, x: complex) -> complex$
+\uplinline$    ChebyshevT = (n: int[0;], x: complex) -> complex$
 \uplinline$    ChebyshevT = (n, x) ->$
 \uplinline$      if (n == 0) (real_one) else$
 \uplinline$      if (n == 1) (x) else$
@@ -501,7 +507,7 @@ We construct transcendental functions algebraically, avoiding infinite limit def
 \uplinline$    $
 \uplinline$    // 3. Imaginary Exponential via Algebraic Group Property$
 \uplinline$    // exp(ix) corresponds to rotation on the unit circle via Cayley$
-\uplinline$    ExpImag = (theta: num) -> complex$
+\uplinline$    ExpImag = (theta: rat) -> complex$
 \uplinline$    ExpImag = theta -> CayleyTransform(comp(z, tan_half(theta))) // where tan_half is algebraic approx$
 \uplinline$    $
 \uplinline$    // 4. General Complex Exponential via Analytic Continuation$
@@ -509,7 +515,7 @@ We construct transcendental functions algebraically, avoiding infinite limit def
 \uplinline$    // Uses the real exponential (limit series) and the algebraic imaginary component$
 \uplinline$    ExpComplex = (c: complex) -> complex$
 \uplinline$    ExpComplex = c -> times(exp_real(real_part(c)), ExpImag(imag_part(c)))$
-\catcode`\}=12 \uplinline$  }$ \catcode`\}=2
+\uplinline|  }| 
 
 \section*{References}
 
