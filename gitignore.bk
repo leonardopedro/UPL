@@ -24,6 +24,15 @@ test/examples/Kopperman_Tutorial.p.log
 test/examples/Kopperman_Tutorial.p.aux
 test/examples/Kopperman_Tutorial.p.sref
 test/examples/dhall.p
+test/examples/cadabra.log
+test/examples/cadabra.aux
+test/examples/cadabra.sref
+test/examples/cadabra.bbl
+test/examples/cadabra.blg
+test/examples/cadabra.out
+test/examples/cadabra.toc
+#test/examples/cadabra.tex
+#test/examples/cadabra.pdf
 #StateOfTheArt_Comparison.md
 #test/examples/Kopperman_Tutorial.p.tex
 #test/examples/Kopperman_Tutorial.p.pdf

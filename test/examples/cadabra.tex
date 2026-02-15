@@ -1,0 +1,124 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[11pt]{article}
+\makeatletter
+\g@addto@macro\@openbib@code{\setlength{\itemsep}{-5pt}}
+\makeatother
+\makeatletter
+\g@addto@macro\@openbib@code{\setlength{\itemsep}{-5pt}}
+\makeatother
+\makeatletter
+\g@addto@macro\@openbib@code{\setlength{\itemsep}{-5pt}}
+\makeatother
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{fullpage}
+\usepackage{mciteplus}
+\makeatletter
+\@ifundefined{mcitemaxwidthsubitem}{\newlength{\mcitemaxwidthsubitem}}{}
+\providecommand{\@mcitecorrectmaxwidthsubitem}{0pt}
+\makeatother
+\linespread{1.25}
+\ifPDFTeX
+\DeclareUnicodeCharacter{03BB}{$\lambda$}
+\DeclareUnicodeCharacter{03D5}{$\phi$}
+\DeclareUnicodeCharacter{221E}{$\infty$}
+\fi
+\hypersetup{
+  pdftitle={Introduction},
+  pdfauthor={Leonardo Pedro},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Introduction}
+\author{Leonardo Pedro}
+\date{\today}
+
+
+\usepackage{graphicx}
+\usepackage{cancel}
+
+\ifPDFTeX
+\DeclareUnicodeCharacter{03C9}{$\omega$}
+\DeclareUnicodeCharacter{25FB}{$\square$}
+\DeclareUnicodeCharacter{03C3}{$\sigma$}
+\DeclareUnicodeCharacter{2006}{\,}
+\DeclareUnicodeCharacter{2004}{\;}
+\DeclareUnicodeCharacter{0301}{\'{}}
+\fi
+
+\begin{document}
+\tableofcontents
+\newpage
+\section{Introduction}
+\label{intro}
+
+\cite{mehlerUeberEntwicklungFunction1866}
+
+\bibliography{bib}{}
+\bibliographystyle{utphysMM}
+
+\end{document}
