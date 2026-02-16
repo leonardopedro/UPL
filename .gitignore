@@ -42,3 +42,10 @@ kopperman.tex
 #test/examples/Kopperman_Tutorial.p.tex
 #test/examples/Kopperman_Tutorial.p.pdf
 #test/examples/preamble.tex
+#src/main/scala/info/kwarc/p/WebMain.scala
+#src/main/scala/info/kwarc/p/verification/verify_math.js
+#src/main/scala/info/kwarc/p/verification/verify_serialization.js
+#src/main/scala/info/kwarc/p/test/serialization_math.p
+#src/main/scala/info/kwarc/p/test/serialization_test.p
+#src/main/scala/info/kwarc/p/test/serialization_verify.p
+
